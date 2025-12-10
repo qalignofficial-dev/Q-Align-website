@@ -1,0 +1,999 @@
+/* --- Root Variables & Global Reset --- */
+:root {
+    --primary-color: #F46A36;
+    /* 이미지의 오렌지색 */
+    --text-dark: #191F28;
+    --text-gray: #6B7684;
+    --bg-light: #F8F9FA;
+    --bg-dark: #191F28;
+    --section-spacing: 120px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    word-break: keep-all;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* 글자 크기 조정 (요청사항 반영: 살짝 줄임) */
+h1 {
+    font-size: 48px;
+}
+
+/* 기존 대형 사이즈에서 조정 */
+h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+p {
+    font-size: 17px;
+    color: var(--text-gray);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+section {
+    padding: var(--section-spacing) 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* --- Components --- */
+.btn {
+    display: inline-block;
+    padding: 16px 32px;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #e35a28;
+}
+
+.section-label {
+    display: inline-block;
+    background-color: #FDE8DF;
+    color: var(--primary-color);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+}
+
+/* --- Section Specific Styles --- */
+
+/* 1. Hero Section (Image 9) */
+.hero {
+    padding: 180px 0 120px;
+}
+
+.hero h1 {
+    margin-bottom: 24px;
+    font-size: 64px;
+    /* Text size increased as requested */
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 48px;
+}
+
+/* 2. The Problem (Image 2, 6, 12) */
+.problem-diagram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-top: 60px;
+    flex-wrap: wrap;
+}
+
+.central-box {
+    padding: 24px 48px;
+    border: 3px solid var(--text-dark);
+    font-size: 28px;
+    font-weight: 700;
+    background: white;
+}
+
+.branch-buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.branch-btn {
+    padding: 16px 24px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.branch-pm {
+    background-color: #DC5F4D;
+}
+
+.branch-des {
+    background-color: #E68A4F;
+}
+
+.branch-eng {
+    background-color: #5B9B8A;
+}
+
+/* 3. The Cause (Image 5, 16, 19) */
+.cause-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 60px;
+}
+
+.cause-content {
+    flex: 1;
+}
+
+.cause-graphic {
+    flex: 1;
+}
+
+.data-table {
+    width: 100%;
+    background: var(--bg-light);
+    padding: 32px;
+    border-radius: 16px;
+    margin-top: 40px;
+}
+
+.table-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 18px;
+}
+
+/* 10. CTA Section */
+.cta-section {
+    padding: 120px 0;
+    /* Spacious padding */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: #191F28;
+    /* Keep it dark or match footer context */
+    /* Force Visibility to bypass Scroll Reveal */
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+.cta-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Vertically Center */
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.cta-title {
+    font-size: 56px;
+    /* Large Title */
+    font-weight: 700;
+    color: white;
+    line-height: 1.1;
+    flex: 1;
+}
+
+.cta-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* Right align content */
+    gap: 24px;
+    margin-top: 10px;
+}
+
+.cta-desc {
+    font-size: 18px;
+    color: #8B95A1;
+    line-height: 1.6;
+    text-align: right;
+    margin: 0;
+}
+
+.btn-cta-primary {
+    display: inline-block;
+    padding: 14px 28px;
+    background: #F46A36;
+    /* Brand Orange */
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 100px;
+    /* Pill shape */
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.btn-cta-primary:hover {
+    background: #e05e2b;
+    /* Darker Orange on hover */
+}
+
+/* Footer (Existing) */
+footer {
+    padding: 60px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #666;
+    font-size: 14px;
+}
+
+.table-row:last-child {
+    border-bottom: none;
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.strong-num {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+/* 4. The Reality (Image 7) */
+.reality-cards {
+    display: flex;
+    gap: 32px;
+    margin-top: 60px;
+}
+
+.stat-card {
+    flex: 1;
+    background: var(--bg-light);
+    padding: 48px;
+    border-radius: 16px;
+}
+
+.big-stat {
+    font-size: 64px;
+    font-weight: 800;
+    color: var(--primary-color);
+    line-height: 1;
+    margin-bottom: 16px;
+}
+
+.stat-card h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+/* 5. The Cost (Image 8) */
+.cost-section {
+    background-color: var(--bg-dark);
+    color: white;
+}
+
+.cost-section p {
+    color: #aaa;
+}
+
+.calculator-ui {
+    max-width: 600px;
+    margin: 60px auto 0;
+    text-align: center;
+}
+
+.team-size-input {
+    font-size: 48px;
+    font-weight: 700;
+    color: white;
+    background: none;
+    border: none;
+    border-bottom: 2px solid #555;
+    width: 100px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.cost-result {
+    font-size: 80px;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+}
+
+.cost-details {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 32px;
+    border-radius: 12px;
+    text-align: left;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.detail-row strong {
+    color: white;
+}
+
+/* 6. The Solution - Steps (Image 3) */
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 60px;
+}
+
+.step-card {
+    background: var(--bg-light);
+    padding: 48px 32px;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.step-number {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    font-size: 80px;
+    font-weight: 900;
+    color: #E0E4E8;
+    z-index: 0;
+}
+
+.step-card h3,
+.step-card p {
+    position: relative;
+    z-index: 1;
+}
+
+/* 7. The Solution - UI Demo (Image 0) */
+.ui-demo-container {
+    margin-top: 80px;
+    background: var(--bg-light);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.daily-question-ui {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.team-voice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.voice-card {
+    background: white;
+    padding: 32px 24px;
+    border-radius: 20px;
+    border-top: 6px solid #ddd;
+    /* Changed to Top border for a card look, or stick to left? Screenshot shows LEFT border. Stuck to left. */
+    border: none;
+    /* Reset */
+    border-left: 6px solid #ddd;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    text-align: left;
+    /* Reverted to left alignment */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Reverted to left alignment */
+    transition: transform 0.2s;
+    min-width: 0;
+    /* Fix for Grid Overflow with nowrap content */
+}
+
+.voice-card:hover {
+    transform: translateY(-5px);
+}
+
+.voice-card h3 {
+    font-size: 20px;
+    margin-bottom: 24px;
+    word-break: keep-all;
+}
+
+.voice-item {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+    width: 100%;
+    max-width: 100%;
+    /* Ensure it doesn't exceed parent */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+}
+
+.voice-card.red {
+    border-left-color: #DC5F4D;
+}
+
+.voice-card.purple {
+    border-left-color: #A855F7;
+}
+
+.voice-card.green {
+    border-left-color: #22C55E;
+}
+
+.flag-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.flag-red {
+    background: #FEE2E2;
+    color: #DC5F4D;
+}
+
+.flag-purple {
+    background: #F3E8FF;
+    color: #A855F7;
+}
+
+.flag-green {
+    background: #DCFCE7;
+    color: #22C55E;
+}
+
+
+/* 8. Science Section */
+.science-section {
+    background: #FFFFFF !important;
+    /* Force White Theme */
+    color: #191F28;
+    padding: 120px 0;
+}
+
+.science-section p {
+    color: #666;
+}
+
+.science-container {
+    display: flex;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.science-content .section-label {
+    background: rgba(244, 106, 54, 0.1) !important;
+    /* Orange bg */
+    color: #F46A36 !important;
+    /* Brand Orange text */
+}
+
+.science-content h2 {
+    color: #191F28;
+}
+
+.radar-chart-placeholder {
+    flex: 1;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #555;
+    font-style: italic;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.metric-box {
+    background: #F2F4F6;
+    /* Light Gray Box */
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #E5E8EB;
+}
+
+.metric-box h3.metric-title {
+    font-size: 18px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    /* Stack vertically for clean look */
+    gap: 4px;
+    color: #191F28;
+}
+
+.metric-en {
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.metric-kr {
+    font-weight: 500;
+    font-size: 15px;
+    color: #8B95A1;
+    /* Softer gray for subtitle */
+}
+
+.metric-desc {
+    font-size: 15px;
+    color: #4E5968 !important;
+    /* Darker readable gray for body */
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* 9. FAQ (Image 4) */
+.faq-list {
+    max-width: 1100px;
+    /* Increased Width */
+    margin: 60px auto 0;
+    /* Centered Block */
+    text-align: left;
+    /* Left Text */
+}
+
+.faq-item {
+    background: var(--bg-light);
+    padding: 32px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+}
+
+.faq-item h3 {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+.faq-item p {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* 10. Footer CTA (Image 10) */
+.footer-cta {
+    padding: 120px 0;
+    text-align: center;
+}
+
+.copyright {
+    margin-top: 80px;
+    font-size: 14px;
+    color: var(--text-gray);
+}
+
+/* 11. Alignment Grid (Impact Section) */
+#alignment {
+    background: #fff;
+    overflow: hidden;
+    padding: 120px 0;
+    /* Align with other sections */
+}
+
+.align-vis {
+    width: 100%;
+    height: 600px;
+    background: #F7F8FA;
+    border-radius: 30px;
+    cursor: none;
+    /* Hide default cursor for immersion */
+    position: relative;
+    overflow: hidden;
+    margin-top: 60px;
+}
+
+/* Custom Cursor Follower */
+.align-vis:hover::after {
+    content: 'VISION';
+    position: absolute;
+    top: var(--y);
+    left: var(--x);
+    transform: translate(-50%, -50%);
+    background: #F46A36;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: 0 10px 20px rgba(244, 106, 54, 0.3);
+}
+
+/* 12. Global Micro-interactions */
+
+/* Buttons */
+.btn,
+.btn-cta-primary {
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
+}
+
+.btn:hover,
+.btn-cta-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(244, 106, 54, 0.3);
+}
+
+.btn:active,
+.btn-cta-primary:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(244, 106, 54, 0.2);
+}
+
+/* Metric Cards (Science Section) */
+.metric-box {
+    /* transition: all 0.3s ease; */
+    cursor: default;
+}
+
+/* FAQ Items */
+.faq-item {
+    /* transition: all 0.3s ease; */
+    border: 1px solid transparent;
+}
+
+/* Voice Items (Team Voices) */
+.voice-item {
+    /* transition: transform 0.3s ease, background 0.3s ease; */
+}
+
+
+
+/* 13. ROI Slider Customization */
+/* Hide Spin Buttons */
+.team-size-input::-webkit-outer-spin-button,
+.team-size-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.team-size-input {
+    -moz-appearance: textfield;
+}
+
+.roi-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #444;
+    /* Default dark track */
+    border-radius: 4px;
+    outline: none;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+/* Slider Thumb (Knob) */
+.roi-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #F46A36;
+    /* Orange Knob */
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+}
+
+.roi-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+}
+
+.roi-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #F46A36;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 36px;
+    }
+
+    h2 {
+        font-size: 28px;
+    }
+
+    .hero {
+        padding: 120px 0 80px;
+    }
+
+    .problem-diagram {
+        flex-direction: column;
+    }
+
+    .branch-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .branch-btn {
+        text-align: center;
+    }
+
+    .cause-container,
+    .reality-cards,
+    .steps-grid,
+    .team-voice-grid,
+    .science-container {
+        flex-direction: column;
+        grid-template-columns: 1fr;
+    }
+
+    .big-stat {
+        font-size: 48px;
+    }
+
+    .cost-result {
+        font-size: 56px;
+    }
+
+    /* V8 Deep Mobile Optimization */
+    .container {
+        padding: 0 20px;
+        /* Ensure visual breathing room */
+    }
+
+    /* Force Canvas Resizing */
+    canvas {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100%;
+    }
+
+    .canvas-container {
+        height: auto !important;
+        padding: 40px 0;
+    }
+
+    /* Typography Scaling */
+    h1 {
+        font-size: 32px;
+        /* Global mobile H1 */
+        line-height: 1.3;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+        /* Even smaller for Hero title on mobile */
+        word-break: keep-all;
+        /* Prevent awkward breaks in Korean */
+    }
+
+    .hero p {
+        font-size: 16px;
+        /* Reduced from 20px */
+        line-height: 1.5;
+        word-break: keep-all;
+        padding: 0 10px;
+        /* Prevent text touching edges */
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+
+    /* Table Mobile View */
+    .data-table {
+        width: 100%;
+    }
+
+    .table-row {
+        gap: 16px;
+    }
+
+    /* Calculator Adjustments */
+    .cost-result {
+        font-size: 42px;
+        /* Prevent overflow */
+        word-break: break-all;
+    }
+
+    .team-size-input {
+        width: 80px;
+        /* Smaller input */
+    }
+
+    /* V8 Mobile Additions (Refined) */
+    .cta-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+        padding: 40px 20px;
+    }
+
+    .cta-right {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .cta-desc {
+        text-align: center;
+        margin-bottom: 24px;
+        font-size: 16px;
+    }
+
+    .btn-cta-primary {
+        width: 100%;
+        /* Full width button */
+        justify-content: center;
+    }
+
+    .align-vis {
+        height: 250px;
+        /* Reduced height */
+    }
+
+    .section-padding {
+        padding: 60px 0;
+    }
+
+    /* Science Card Adjustments */
+    .metric-box {
+        padding: 24px;
+    }
+
+    .radar-chart-placeholder {
+        padding: 20px 0 !important;
+    }
+}
+
+/* 14. Beta Signup Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+}
+
+.modal-content h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.modal-content p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+.modal-input {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 16px;
+    margin-bottom: 12px;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.modal-input:focus {
+    border-color: #F46A36;
+}
+
+.btn-modal-submit {
+    width: 100%;
+    padding: 16px;
+    background: #F46A36;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-modal-submit:hover {
+    background: #E05A2B;
+}

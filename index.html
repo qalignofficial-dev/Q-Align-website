@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q-ALIGN - Team Alignment OS</title>
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <section class="hero text-center">
+        <div class="container">
+            <h1>팀이 흔들리지 않으려면<br>방향이 매일 같아야 해요.</h1>
+            <p>보이지 않는 1도의 초기 기울기(Initial Tilt)를 감지하는<br>최초의 Team State OS</p>
+            <a href="#" class="btn">이번 주 팀 상태 받아보기</a>
+        </div>
+    </section>
+
+
+
+    <section>
+        <div class="container">
+            <div class="cause-container">
+                <div class="cause-content">
+                    <span class="section-label">The Cause</span>
+                    <h2>문제는 사람의 역량이 아니라<br>'구조'에 있습니다.</h2>
+                    <p>사람은 조금 늘지만, 대화의 복잡도는 기하급수적으로 폭발합니다.<br>이 구간에서는 아무도 잘못하지 않아도 맥락이 유지되기 어렵습니다.</p>
+
+                    <div class="data-table">
+                        <div class="table-row">
+                            <span>6명 팀</span>
+                            <div><span class="strong-num">15</span> 개 링크</div>
+                        </div>
+                        <div class="table-row">
+                            <span>12명 팀</span>
+                            <div><span class="strong-num">66</span> 개 링크</div>
+                        </div>
+                        <div class="table-row">
+                            <span>20명 팀</span>
+                            <div><span class="strong-num">190</span> 개 링크</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="canvas-container"
+                    style="display:flex; justify-content:center; align-items:center; height:450px;">
+                    <canvas id="networkCanvas" width="450" height="450"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-center">
+        <div class="container">
+            <span class="section-label">The Reality</span>
+            <h2>현장의 리더들이 꼽은<br>가장 큰 조직 운영의 병목.</h2>
+
+            <div class="reality-cards">
+                <div class="stat-card">
+                    <div class="big-stat" data-val="66">0%</div>
+                    <h3>"같은 말을 해도<br>각자 다르게 이해한다."</h3>
+                    <p>가장 혼란스러운 이유 1위</p>
+                </div>
+                <div class="stat-card">
+                    <div class="big-stat" data-val="21">0%</div>
+                    <h3>"큰 문제는 없지만,<br>묘하게 속도가 안 난다."</h3>
+                    <p>보이지 않는 비효율에 대한 호소</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cost-section text-center">
+        <div class="container">
+            <span class="section-label" style="background: rgba(255,255,255,0.1); color: white;">The Cost</span>
+            <h2>정렬 붕괴는 조용히 시작되지만,<br>비용은 즉시 빠져나갑니다.</h2>
+
+            <div class="calculator-ui">
+                <p style="margin-bottom: 16px;">우리 팀 인원 수</p>
+                <div>
+                    <input type="number" value="5" class="team-size-input">
+                    <span style="font-size: 24px; font-weight: 700;">명</span>
+                </div>
+
+                <div style="margin: 40px 0;">
+                    <input type="range" id="roiSlider" class="roi-slider" min="1" max="1000" value="100">
+                </div>
+
+                <div class="cost-result">3,150,315원</div>
+
+                <div class="cost-details">
+                    <div class="detail-row">
+                        <span>1인당 주간 정렬 미스 시간</span>
+                        <strong>8.7시간</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>평균 시급 (예상)</span>
+                        <strong>20,000원</strong>
+                    </div>
+                    <div class="detail-row" style="margin-bottom: 0;">
+                        <span>월 주수</span>
+                        <strong>4주</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-center">
+        <div class="container">
+            <span class="section-label">The Solution</span>
+            <h2>Q-ALIGN은 복잡한 관리를 없애고<br>3단계로 팀을 자동 정렬합니다.</h2>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <span class="step-number">01</span>
+                    <h3>Detect (감지)</h3>
+                    <p>매일 슬랙/팀즈에서 던지는 가벼운 질문으로, 팀의 보이지 않는 '초기 기울기'를 24시간 모니터링합니다.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-number">02</span>
+                    <h3>Analyze (해석)</h3>
+                    <p>Q-ALIGN 엔진이 텍스트 뒤에 숨겨진 맥락을 분석하여, 리더와 팀원 사이의 '해석의 격차(Drift)'를 찾아냅니다.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-number">03</span>
+                    <h3>Align (정렬)</h3>
+                    <p>문제가 커지기 전에 리더에게 알림을 보내고, 즉시 실행 가능한 'Action Item'을 제공하여 정렬을 맞춥니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-center" style="padding-top: 0;">
+        <div class="container">
+            <div class="ui-demo-container">
+                <h3>오늘의 질문 & 팀 목소리 미리보기</h3>
+                <p style="margin-bottom: 40px;">팀원들은 부담 없이 답변하고, 리더는 핵심만 파악합니다.</p>
+
+                <div class="daily-question-ui text-center">
+                    <span class="section-label" style="background: #eee; color: #666; margin-bottom: 16px;">오늘의
+                        질문</span>
+                    <h3 style="font-size: 22px;">오늘 당신이 쌓아 올릴 작은 벽돌(업무) 하나는,<br>우리 회사의 어떤 '거대한 성당(비전)'을 완성해가는 과정일까요?
+                    </h3>
+                </div>
+
+                <div class="team-voice-grid">
+                    <div class="voice-card red">
+                        <span class="flag-badge flag-red">도움이 필요해요 (Red Flag)</span>
+                        <h3>팀원들이 새로운 시도에 대해 부담을 느낍니다.</h3>
+                        <div class="voice-item">김철수 (2점): 실패할까 봐 겁나요. 혹시라도 제가 틀리면...</div>
+                        <div class="voice-item">이영희 (1점): 지금 업무도 벅찹니다. 새로운 건 무리예요.</div>
+                    </div>
+                    <div class="voice-card purple">
+                        <span class="flag-badge flag-purple">주목해보세요 (Purple Flag)</span>
+                        <h3>현재 업무와 회사의 비전 사이의 연결고리가 약해 보입니다.</h3>
+                        <div class="voice-item">박민수 (3점): 매일 쳐내야 하는 CS 처리가 급해서... 비전은 잘...</div>
+                        <div class="voice-item">최영수 (3점): 제 코드가 제품 기능엔 기여하겠지만 큰 그림은...</div>
+                    </div>
+                    <div class="voice-card green">
+                        <span class="flag-badge flag-green">칭찬해주세요 (Green Flag)</span>
+                        <h3>매일의 업무 속에서 회사의 비전을 명확히 보고 있습니다.</h3>
+                        <div class="voice-item">홍길동 (5점): 오늘 제가 수정한 작은 코드 하나가 결국 우리...</div>
+                        <div class="voice-item">정수진 (4점): 고객 응대 매뉴얼을 만드는 지침이 명확해서...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="science-section">
+        <div class="container">
+            <div class="science-container">
+                <div class="radar-chart-placeholder" style="background: none; padding: 0;">
+                    <canvas id="matrixCanvas" width="500" height="500"></canvas>
+                </div>
+                <div class="science-content">
+                    <span class="section-label">The Science</span>
+                    <h2 style="margin-bottom: 40px;">감으로 경영하지 마세요.<br>6가지 데이터로 운영하세요.</h2>
+
+                    <div class="metrics-grid">
+                        <div class="metric-box">
+                            <h3 class="metric-title">
+                                <span class="metric-en">Growth</span>
+                                <span class="metric-kr">성장의 확신</span>
+                            </h3>
+                            <p class="metric-desc">내 일이 나를 성장시키는가</p>
+                        </div>
+                        <div class="metric-box">
+                            <h3 class="metric-title">
+                                <span class="metric-en">Productivity</span>
+                                <span class="metric-kr">몰입 방해 요인</span>
+                            </h3>
+                            <p class="metric-desc">일에 집중을 방해하는 요소가 있는가</p>
+                        </div>
+                        <div class="metric-box">
+                            <h3 class="metric-title">
+                                <span class="metric-en">Teamwork</span>
+                                <span class="metric-kr">협업 자연스러움</span>
+                            </h3>
+                            <p class="metric-desc">팀과의 협업이 잘 맞물리는가</p>
+                        </div>
+                        <div class="metric-box">
+                            <h3 class="metric-title">
+                                <span class="metric-en">Customer</span>
+                                <span class="metric-kr">고객 기준 판단</span>
+                            </h3>
+                            <p class="metric-desc">의사결정이 고객 기준에 맞는가</p>
+                        </div>
+                        <div class="metric-box">
+                            <h3 class="metric-title">
+                                <span class="metric-en">Vision</span>
+                                <span class="metric-kr">비전 연결감</span>
+                            </h3>
+                            <p class="metric-desc">내 일이 회사 비전과 연결되는가</p>
+                        </div>
+                        <div class="metric-box">
+                            <h3 class="metric-title">
+                                <span class="metric-en">Wellness</span>
+                                <span class="metric-kr">심리적 안정감</span>
+                            </h3>
+                            <p class="metric-desc">심리적으로 안전하게 일하고 있는가</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. Alignment Grid (Impact Section) -->
+    <section id="alignment" class="section-padding">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 60px;">
+                <span class="section-label">THE IMPACT</span>
+                <h2 class="reveal delay-1">강요하지 않아도,<br>스스로 한 방향을 봅니다.</h2>
+                <p class="reveal delay-2">
+                    판단이 한 방향으로 모이는 순간,<br>
+                    조직의 실행력은 최고로 올라갑니다.
+                </p>
+            </div>
+
+            <div class="align-vis" id="alignTrigger">
+                <canvas id="gridCanvas"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-center">
+        <div class="container">
+            <span class="section-label">FAQ</span>
+            <h2 style="text-align: center;">도입 전, 궁금한 점들.</h2>
+
+            <div class="faq-list text-left">
+                <div class="faq-item">
+                    <h3>Q. 팀원들이 감시당한다고 느끼지 않을까요?</h3>
+                    <p>Q-ALIGN은 개인을 평가하지 않아요.<br>
+                        하루 동안의 응답만 잠시 반영되고, 전날 기록은 모두 사라집니다.<br>
+                        리더는 익명으로 묶인 팀의 흐름만 확인하고,<br>
+                        팀원은 본인만 볼 수 있는 개인 성장 리포트를 받아요.<br>
+                        누구도 누군가를 평가할 수 없고, 모두가 가볍게 안심하고 사용할 수 있도록 설계했어요.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q. 매일 입력하는 게 번거롭지 않나요?</h3>
+                    <p>단 3초면 충분합니다. 업무 흐름을 방해하지 않는 선에서 가벼운 질문 하나에 답하는 방식으로 설계되었습니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q. 리더와 구성원은 각각 무엇을 얻나요?</h3>
+                    <p>리더는 보이지 않던 팀의 '초기 기울기'를 사전에 발견하여 예방할 수 있고, 구성원은 자신의 업무가 회사 비전과 어떻게 연결되는지 매일 확인하며 성장할
+                        수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. CTA Section -->
+    <section class="cta-section">
+        <div class="container cta-container">
+            <h2 class="cta-title">Start Aligning<br>Today.</h2>
+            <div class="cta-right">
+                <p class="cta-desc">Q-ALIGN은 침묵 속의 기울기를 가시화하는<br>유일한 OS입니다.</p>
+                <a href="#" class="btn-cta-primary">무료로 시작하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 14. Beta Signup Modal -->
+    <div id="betaModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h3>베타 신청하기</h3>
+            <p>이메일을 남기면<br>베타 오픈 소식을 가장 먼저 알려드려요.</p>
+            <form id="betaForm">
+                <input type="email" name="email" placeholder="이메일 주소 (name@company.com)" required class="modal-input">
+                <button type="submit" class="btn-modal-submit">신청하기</button>
+            </form>
+            <iframe name="hidden_iframe" style="display:none;"></iframe>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p class="copyright">© 2025 Q-ALIGN. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
