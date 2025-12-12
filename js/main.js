@@ -195,105 +195,238 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         drawMatrix();
     }
-    /* 11. Alignment Grid Logic */
-    function initAlignmentGrid() {
-        const gCanvas = document.getElementById('gridCanvas');
-        const vis = document.getElementById('alignTrigger');
+    /* 11. Alignment Vision 3D (Milky Glass Boomerangs) */
+    function initVision3D() {
+        const canvas = document.getElementById('gridCanvas');
+        const container = document.getElementById('alignTrigger');
 
-        if (!gCanvas || !vis) return;
+        if (!canvas || !container) return;
 
-        const gCtx = gCanvas.getContext('2d');
-        let gw, gh;
-        let arrows = [];
-        const spacing = 40; // Gap between arrows
-        let mouseX = -1000, mouseY = -1000;
+        // Scene Setup
+        const scene = new THREE.Scene();
+        // Transparent background to blend with section
+        scene.background = null;
 
-        // Resize Handler
-        function resizeGrid() {
-            gw = gCanvas.width = vis.offsetWidth;
-            gh = gCanvas.height = vis.offsetHeight;
-            initGrid();
-        }
-        window.addEventListener('resize', resizeGrid);
+        // Camera
+        const camera = new THREE.PerspectiveCamera(50, container.offsetWidth / container.offsetHeight, 0.1, 100);
+        camera.position.z = 25;
 
-        // Mouse Tracking
-        vis.addEventListener('mousemove', e => {
-            const r = vis.getBoundingClientRect();
-            mouseX = e.clientX - r.left;
-            mouseY = e.clientY - r.top;
-            vis.style.setProperty('--x', mouseX + 'px');
-            vis.style.setProperty('--y', mouseY + 'px');
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({
+            canvas: canvas,
+            alpha: true,
+            antialias: true
         });
+        renderer.setSize(container.offsetWidth, container.offsetHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-        // Reset when mouse leaves
-        vis.addEventListener('mouseleave', () => {
-            mouseX = -1000;
-            mouseY = -1000;
+        // Lighting (Matching Hero: Soft Studio)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        dirLight.position.set(10, 20, 20);
+        dirLight.castShadow = true;
+        scene.add(dirLight);
+
+        const fillLight = new THREE.DirectionalLight(0xE0F2FE, 0.8); // Cool fill
+        fillLight.position.set(-10, 0, 10);
+        scene.add(fillLight);
+
+        // Geometry: Boomerang (Smaller for Vision)
+        const shape = new THREE.Shape();
+        const w = 0.35; // Thinner
+        const armLen = 0.6; // Smaller size
+        // V-shape pointing UP initially (0,0 is bottom tip)
+        shape.moveTo(0, 0);
+        shape.quadraticCurveTo(armLen * 0.5, armLen * 0.5, armLen, armLen);
+        shape.lineTo(armLen - w, armLen);
+        shape.quadraticCurveTo(0, armLen * 0.3, 0, w);
+        shape.quadraticCurveTo(0, armLen * 0.3, -armLen + w, armLen);
+        shape.lineTo(-armLen, armLen);
+        shape.quadraticCurveTo(-armLen * 0.5, armLen * 0.5, 0, 0);
+
+        const geometry = new THREE.ExtrudeGeometry(shape, {
+            depth: 0.03, // Thinner (was 0.06)
+            bevelEnabled: true,
+            bevelSegments: 2, // Sharper edges (was 4)
+            steps: 1,
+            bevelSize: 0.005, // Tight bevel (was 0.015)
+            bevelThickness: 0.005 // Tight bevel (was 0.015)
         });
+        geometry.center();
 
-        class Arrow {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.angle = 0;
+        // Grid Variables
+        const arrows = [];
+        const group = new THREE.Group();
+        scene.add(group);
+
+        const gridX = 20; // More density
+        const gridY = 10;
+        const spacingX = 1.8; // Closer spacing
+        const spacingY = 1.8;
+
+        for (let i = 0; i < gridX; i++) {
+            for (let j = 0; j < gridY; j++) {
+                // Shared Milky Glass Material
+                const material = new THREE.MeshPhysicalMaterial({
+                    color: 0xFFFFFF,
+                    roughness: 0.35,
+                    metalness: 0.1,
+                    transmission: 0.95,
+                    thickness: 1.5,
+                    clearcoat: 0.3,
+                    clearcoatRoughness: 0.2,
+                    transparent: true,
+                    opacity: 1.0,
+                    side: THREE.DoubleSide
+                });
+
+                // Subtle orange tint
+                const color1 = new THREE.Color(0xFFFFFF);
+                const color2 = new THREE.Color(0xFFE4D6);
+                const xPct = i / gridX;
+                material.color = color1.clone().lerp(color2, xPct);
+
+                const mesh = new THREE.Mesh(geometry, material);
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+
+                const x = (i - gridX / 2) * spacingX + 1.0;
+                const y = (j - gridY / 2) * spacingY + 1.0;
+
+                mesh.position.set(x, y, 0);
+                group.add(mesh);
+
+                arrows.push({
+                    mesh: mesh,
+                    x: x,
+                    y: y,
+                    initialRot: 0
+                });
             }
+        }
 
-            draw() {
-                const dx = mouseX - this.x;
-                const dy = mouseY - this.y;
-                let targetAngle = Math.atan2(dy, dx);
+        // Mouse Tracker
+        let mouse = new THREE.Vector2(-9999, -9999);
+        const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+        const raycaster = new THREE.Raycaster();
 
-                if (mouseX === -1000) targetAngle = 0;
+        function onMouseMove(event) {
+            const rect = container.getBoundingClientRect(); // Use container rect for CSS vars
 
-                let diff = targetAngle - this.angle;
+            // 3D Mouse Coords (Normalized -1 to +1)
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+            // CSS Config for Cursor Follower (Pixels)
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            container.style.setProperty('--x', x + 'px');
+            container.style.setProperty('--y', y + 'px');
+        }
+
+        container.addEventListener('mousemove', onMouseMove);
+        container.addEventListener('mouseleave', () => {
+            mouse.x = -9999;
+            mouse.y = -9999;
+        });
+
+
+        // Animation Loop
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.01;
+
+            // Raycaster for mouse interaction
+            raycaster.setFromCamera(mouse, camera);
+            const target = new THREE.Vector3();
+            raycaster.ray.intersectPlane(plane, target);
+
+            arrows.forEach((item, index) => {
+                const mesh = item.mesh;
+
+                // Default Properties
+                const dxCenter = -mesh.position.x;
+                const dyCenter = -mesh.position.y;
+                let targetAngle = Math.atan2(dyCenter, dxCenter) + Math.PI / 2; // Reverted to correct focus
+
+                const baseColor = item.baseColor || new THREE.Color(0xFFFFFF); // Use stored base if avail or white
+                const activeColor = new THREE.Color(0xF46A36); // Brand Orange confirmed
+
+                let targetColor = new THREE.Color(0xFFFFFF); // Default White/Peach
+                if (item.baseColor) targetColor.copy(item.baseColor);
+
+                let targetTransmission = 0.95; // Glass
+                let targetEmissive = new THREE.Color(0x000000); // No glow
+                let targetScale = 1.0;
+
+                // Mouse Interaction Override
+                if (target && mouse.x !== -9999) {
+                    const dx = target.x - mesh.position.x;
+                    const dy = target.y - mesh.position.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    // Interaction Radius
+                    const hoverRadius = 14;
+
+                    if (dist < hoverRadius) {
+                        const influence = 1 - (dist / hoverRadius);
+                        const mouseAngle = Math.atan2(dy, dx) + Math.PI / 2; // Point AT cursor
+
+                        targetAngle = mouseAngle;
+
+                        // Active State Props
+                        targetScale = 1.0 + influence * 0.3;
+
+                        // Color: White -> Vibrant Orange
+                        targetColor.copy(baseColor).lerp(activeColor, influence);
+                        // Transmission: Glass -> Solid (0.2)
+                        targetTransmission = 0.95 - (influence * 0.75);
+                        // Emissive: None -> Orange Glow
+                        targetEmissive.setHex(0xFF4400).multiplyScalar(influence * 0.5);
+                    }
+                }
+
+                // Smooth Updates
+                // Rotation
+                let diff = targetAngle - mesh.rotation.z;
                 while (diff > Math.PI) diff -= Math.PI * 2;
                 while (diff < -Math.PI) diff += Math.PI * 2;
-                this.angle += diff * 0.1;
+                mesh.rotation.z += diff * 0.1;
 
-                gCtx.save();
-                gCtx.translate(this.x, this.y);
-                gCtx.rotate(this.angle);
+                // Material Props Lerp
+                mesh.material.color.lerp(targetColor, 0.1);
+                mesh.material.transmission += (targetTransmission - mesh.material.transmission) * 0.1;
+                mesh.material.emissive.lerp(targetEmissive, 0.1);
 
-                gCtx.beginPath();
-                gCtx.moveTo(-8, -4);
-                gCtx.lineTo(8, 0);
-                gCtx.lineTo(-8, 4);
+                // Scale
+                mesh.scale.setScalar(mesh.scale.x + (targetScale - mesh.scale.x) * 0.1);
 
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                const isActive = dist < 250 && mouseX !== -1000;
+                // Subtle Wave/Tilt
+                mesh.rotation.x = Math.sin(time * 0.5 + index) * 0.1;
+            });
 
-                gCtx.strokeStyle = isActive ? '#F46A36' : '#D1D6DB';
-                gCtx.lineWidth = isActive ? 3 : 2;
-                gCtx.lineCap = 'round';
-                gCtx.lineJoin = 'round';
-
-                gCtx.stroke();
-                gCtx.restore();
-            }
+            renderer.render(scene, camera);
         }
 
-        function initGrid() {
-            arrows = [];
-            for (let x = spacing / 2; x < gw; x += spacing) {
-                for (let y = spacing / 2; y < gh; y += spacing) {
-                    arrows.push(new Arrow(x, y));
-                }
-            }
+        // Resize
+        function onWindowResize() {
+            camera.aspect = container.offsetWidth / container.offsetHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.offsetWidth, container.offsetHeight);
         }
+        window.addEventListener('resize', onWindowResize);
 
-        function animateGrid() {
-            gCtx.clearRect(0, 0, gw, gh);
-            arrows.forEach(a => a.draw());
-            requestAnimationFrame(animateGrid);
-        }
-
-        // Start
-        resizeGrid();
-        animateGrid();
+        animate();
     }
 
     // Initialize
-    initAlignmentGrid();
+    initVision3D();
 
     /* Count-Up Animation for Big Stats (Reality) */
     const stats = document.querySelectorAll('.big-stat');

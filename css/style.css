@@ -131,19 +131,17 @@ section {
 
 .hero h1 {
     margin-bottom: 24px;
-    font-size: 64px;
+    font-size: 70px !important;
+    /* Reduced to 70px as requested */
     font-weight: 800;
-    /* ExtraBold */
-    /* Text size increased as requested */
+    line-height: 1.1;
+    /* Relaxed leading */
+    letter-spacing: -2px;
 }
 
 .hero p {
     font-size: 20px;
     margin-bottom: 48px;
-}
-
-width: 0 !important;
-height: 0 !important;
 }
 
 /* 2. The Problem (Image 2, 6, 12) */
@@ -218,6 +216,196 @@ height: 0 !important;
     padding: 16px 0;
     border-bottom: 1px solid #e0e0e0;
     font-size: 18px;
+}
+
+/* New Priority & Execution Section */
+/* New Priority & Execution Section */
+.priority-execution-section {
+    padding: 120px 0;
+    background: #f9f9f9;
+}
+
+.priority-execution-section h2 {
+    font-size: 3rem;
+    /* Increased size */
+    font-weight: 800;
+    /* Extra bold */
+    letter-spacing: -0.02em;
+}
+
+.priority-execution-section h2 .text-glass {
+    /* Solid Matte Material: Rich Orange -> Deep Orange */
+    /* Removed all pale/white tones to fix 'White Gradient' complaint */
+    background: linear-gradient(180deg, #ff9a6e 0%, #ff6b4a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* Clean, physical look */
+    text-shadow: none;
+    -webkit-text-stroke: 0;
+    filter: none;
+    opacity: 1;
+}
+
+.priority-execution-section h2 .text-orange {
+    /* Vibrant Natural Orange */
+    background: linear-gradient(135deg, #FF7E5F 0%, #feb47b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.priority-execution-section p {
+    font-size: 1.35rem;
+    /* Increased size */
+    line-height: 1.6;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto 60px;
+}
+
+.pe-grid {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+/* Full Bleed Overlay Layout (User Request - Final Match) */
+.pe-card {
+    flex: 0 1 380px;
+    min-width: 380px;
+    max-width: 440px;
+    background: #1c1f20;
+    /* Dark background base */
+    border-radius: 24px;
+    padding: 0;
+    /* Remove padding for full bleed */
+    text-align: center;
+    transition: transform 0.3s ease;
+    height: 480px;
+    overflow: hidden;
+    position: relative;
+    /* Context for absolute children */
+}
+
+/* Image fills the entire card container */
+.pe-image-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    margin: 0;
+    display: block;
+}
+
+.pe-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Covers entire card = No borders guaranteed */
+    object-position: bottom;
+    /* Anchor to bottom to keep ground level */
+    transform: scale(1.05);
+    /* Slight zoom to ensure no edges are visible */
+
+    /* Ensure rich colors */
+    mix-blend-mode: normal;
+    filter: brightness(1.1) contrast(1.0);
+
+    /* No masks needed for full bleed */
+    mask-image: none;
+    -webkit-mask-image: none;
+}
+
+/* Text Floats on Top (Overlay) */
+.pe-card h3 {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    margin: 0;
+
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+    /* Stronger shadow for better contrast */
+    pointer-events: none;
+
+    /* Force Solid White (Override any glass gradients) */
+    color: #ffffff;
+    background: none;
+    -webkit-text-fill-color: initial;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+}
+
+.pe-card p {
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    width: 100%;
+    padding: 0 24px;
+    z-index: 10;
+    margin: 0;
+
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+    /* Stronger shadow for better contrast */
+}
+
+/* 10. CTA Section */
+.cta-section {
+    padding: 120px 0;
+    /* Spacious padding */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: #191F28;
+    /* Keep it dark or match footer context */
+    /* Force Visibility to bypass Scroll Reveal */
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+.cta-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Vertically Center */
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.cta-title {
+    font-size: 56px;
+    /* Large Title */
+    font-weight: 700;
+    color: white;
+    line-height: 1.1;
+    flex: 1;
+}
+
+.cta-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* Right align content */
+    gap: 24px;
+    color: white;
+}
+
+.pe-card p {
+    font-size: 18px;
+    color: #cccccc;
+    line-height: 1.6;
 }
 
 /* 10. CTA Section */
@@ -681,21 +869,37 @@ footer {
 }
 
 /* Custom Cursor Follower */
+/* Custom Cursor Follower */
 .align-vis:hover::after {
-    content: 'VISION';
+    content: 'Q-ALIGN';
     position: absolute;
     top: var(--y);
     left: var(--x);
     transform: translate(-50%, -50%);
+    /* Dead Center */
     background: #F46A36;
     color: white;
-    padding: 8px 16px;
+    padding: 8px 18px;
     border-radius: 100px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 800;
     pointer-events: none;
-    z-index: 10;
-    box-shadow: 0 10px 20px rgba(244, 106, 54, 0.3);
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(244, 106, 54, 0.3);
+    white-space: nowrap;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
 }
 
 /* 12. Global Micro-interactions */
@@ -730,12 +934,6 @@ footer {
     border: 1px solid transparent;
 }
 
-/* Voice Items (Team Voices) */
-.voice-item {
-    /* transition: transform 0.3s ease, background 0.3s ease; */
-}
-
-
 
 /* 13. ROI Slider Customization */
 /* Hide Spin Buttons */
@@ -747,10 +945,12 @@ footer {
 
 .team-size-input {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .roi-slider {
     -webkit-appearance: none;
+    appearance: none;
     width: 100%;
     height: 8px;
     background: #444;
