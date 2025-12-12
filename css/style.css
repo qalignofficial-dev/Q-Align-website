@@ -100,7 +100,23 @@ section {
 
 /* 1. Hero Section (Image 9) */
 .hero {
+    position: relative;
     padding: 180px 0 120px;
+    overflow: hidden;
+}
+
+.hero-bg-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.hero .container {
+    position: relative;
+    z-index: 1;
 }
 
 .hero h1 {
