@@ -132,6 +132,8 @@ section {
 .hero h1 {
     margin-bottom: 24px;
     font-size: 64px;
+    font-weight: 800;
+    /* ExtraBold */
     /* Text size increased as requested */
 }
 
@@ -463,6 +465,16 @@ footer {
 
 .voice-card:hover {
     transform: translateY(-5px);
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    /* ExtraBold */
+    margin-bottom: 20px;
+    line-height: 1.4;
+    word-break: keep-all;
+    color: #1F2937;
 }
 
 .voice-card h3 {

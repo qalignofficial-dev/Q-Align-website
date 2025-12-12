@@ -442,7 +442,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Scene Setup
         const scene = new THREE.Scene();
-        scene.background = null;
+        // No dark fog. Optional: very subtle white fog for depth fading
+        scene.fog = new THREE.Fog(0xffffff, 20, 50);
 
         // Camera
         const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
@@ -456,43 +457,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         renderer.setSize(container.clientWidth, container.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.shadowMap.enabled = true; // Enable Shadows
+        renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         container.appendChild(renderer.domElement);
 
-        // Lights
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        // Lights - Studio Setup for Light Background
+        // Soft, bright ambient to ensure nothing is too dark
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
         scene.add(ambientLight);
 
+        // Main Key Light (Soft Shadows)
         const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
-        dirLight.position.set(10, 20, 30);
+        dirLight.position.set(5, 15, 20);
         dirLight.castShadow = true;
+        // Soften shadows
         dirLight.shadow.mapSize.width = 2048;
         dirLight.shadow.mapSize.height = 2048;
+        dirLight.shadow.bias = -0.0001;
+        dirLight.shadow.radius = 4; // Soft edges
         scene.add(dirLight);
 
-        // Create Sharper V-Shape Geometry ("Edgy" Look)
-        const vShape = new THREE.Shape();
-        const size = 0.6; // Slightly larger
-        const width = 0.12; // Thinner
+        // Fill Light (Cooler to contrast warm gradient)
+        const fillLight = new THREE.DirectionalLight(0xE0F2FE, 0.5); // Light Blueish
+        fillLight.position.set(-10, 0, 10);
+        scene.add(fillLight);
 
-        // Draw a sharper, more acute V
-        /*
-          \   /
-           \ / 
-        */
-        vShape.moveTo(-size, size);
-        vShape.lineTo(0, -0.2); // Point goes deeper/sharper
-        vShape.lineTo(size, size);
-        vShape.lineTo(size - width, size);
-        vShape.lineTo(0, 0); // Inner V
-        vShape.lineTo(-size + width, size);
-        vShape.lineTo(-size, size);
+        // Shape: Boomerang/Curved V (Maintained)
+        const shape = new THREE.Shape();
+        const armLen = 0.6;
+        const w = 0.12;
+        shape.moveTo(-armLen, armLen);
+        shape.quadraticCurveTo(0, armLen * 0.3, 0, 0);
+        shape.quadraticCurveTo(0, armLen * 0.3, armLen, armLen);
+        shape.lineTo(armLen - w, armLen);
+        shape.quadraticCurveTo(0, armLen * 0.5 + w, -armLen + w, armLen);
+        shape.lineTo(-armLen, armLen);
 
-        const geometry = new THREE.ExtrudeGeometry(vShape, {
+        const geometry = new THREE.ExtrudeGeometry(shape, {
             depth: 0.08,
             bevelEnabled: true,
-            bevelSegments: 4, // Smoother bevel for highlights
+            bevelSegments: 6,
             steps: 1,
             bevelSize: 0.02,
             bevelThickness: 0.02
@@ -509,22 +513,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const spacingX = 2.2;
         const spacingY = 2.2;
 
-        // Create Grid with Gradient Colors
         for (let i = 0; i < gridX; i++) {
             for (let j = 0; j < gridY; j++) {
-                // Calculate Color
+                // Gradient Colors
                 const xPct = i / gridX;
-                const color1 = new THREE.Color(0x3B82F6); // Blue
-                const color2 = new THREE.Color(0xF46A36); // Orange
+                const color1 = new THREE.Color(0x3B82F6);
+                const color2 = new THREE.Color(0xF46A36);
                 const finalColor = color1.clone().lerp(color2, xPct);
 
-                // Premium Material (Glossy/Satin)
-                const material = new THREE.MeshStandardMaterial({
+                // Material: "Frosted Glass" / Gummy
+                // Needs transmission to look like jelly/glass on white
+                const material = new THREE.MeshPhysicalMaterial({
                     color: finalColor,
-                    roughness: 0.4,
-                    metalness: 0.1,
+                    roughness: 0.2,       // Shiny
+                    metalness: 0.1,       // Low metal, more plastic/glass
+                    transmission: 0.6,    // See-through (Glass)
+                    thickness: 1.0,       // Refraction volume
+                    clearcoat: 1.0,       // Polish
+                    clearcoatRoughness: 0.1,
                     transparent: true,
-                    opacity: 0.3
+                    opacity: 1.0,         // Transmission handles transparency
+                    side: THREE.DoubleSide
                 });
 
                 const mesh = new THREE.Mesh(geometry, material);
@@ -550,10 +559,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Invisible Plane for Shadows
+        // Invisible Plane for Contact Shadows
+        // On white background, shadows should be soft gray
         const shadowPlane = new THREE.Mesh(
             new THREE.PlaneGeometry(100, 100),
-            new THREE.ShadowMaterial({ opacity: 0.05 }) // Very subtle shadow
+            new THREE.ShadowMaterial({
+                opacity: 0.08, // Subtle shadow on white
+                color: 0x1F2937 // Dark gray shadow, not pitch black
+            })
         );
         shadowPlane.position.z = -0.5;
         group.add(shadowPlane);
@@ -593,59 +606,52 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
                     const radius = 14;
-
                     const lookAtAngle = Math.atan2(dy, dx) + Math.PI / 2;
 
                     let targetRotZ = item.initialRot;
-                    let targetRotX = 0; // Flat
-                    let targetRotY = 0; // Flat
-                    let targetOpacity = 0.2;
+                    let targetRotX = 0;
+                    let targetRotY = 0;
+                    // No opacity fade needed for Frosted Glass; 
+                    // varying transmission or roughness could be cool, but let's stick to motion.
                     let targetScale = 1.0;
 
                     if (dist < radius) {
-                        // Influence
                         const influence = 1 - (dist / radius);
-                        const powerInfluence = Math.pow(influence, 2); // Sharp dropoff
+                        const powerInfluence = Math.pow(influence, 2);
 
-                        // Look At Z
                         targetRotZ = lookAtAngle;
 
-                        // 3D Tilt Effect: "Edgy" feel
-                        // Tilt towards mouse direction
-                        targetRotX = (dy / radius) * influence * 1.5; // Pitch
-                        targetRotY = -(dx / radius) * influence * 1.5; // Yaw
+                        // 3D Tilt
+                        targetRotX = (dy / radius) * influence * 1.5;
+                        targetRotY = -(dx / radius) * influence * 1.5;
 
-                        targetOpacity = 0.2 + (0.8 * powerInfluence);
+                        // Scale up slightly near mouse
                         targetScale = 1.0 + (0.1 * powerInfluence);
                     }
 
                     // Smooth Update
-
-                    // Z Rotation
                     let diff = targetRotZ - mesh.rotation.z;
                     while (diff > Math.PI) diff -= Math.PI * 2;
                     while (diff < -Math.PI) diff += Math.PI * 2;
 
                     if (dist >= radius) {
                         // Chaos Drift
-                        item.initialRot += 0.001;
+                        item.initialRot += 0.0005; // Slower drift for elegance
                         targetRotZ = item.initialRot;
                         diff = targetRotZ - mesh.rotation.z;
                         while (diff > Math.PI) diff -= Math.PI * 2;
                         while (diff < -Math.PI) diff += Math.PI * 2;
-                        mesh.rotation.z += diff * 0.05;
+                        mesh.rotation.z += diff * 0.02; // Very smooth
 
-                        // Reset 3D Tilt
                         mesh.rotation.x = THREE.MathUtils.lerp(mesh.rotation.x, 0, 0.05);
                         mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, 0, 0.05);
                     } else {
                         // Order Snap
-                        mesh.rotation.z += diff * 0.1;
-                        mesh.rotation.x = THREE.MathUtils.lerp(mesh.rotation.x, targetRotX, 0.1);
-                        mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, targetRotY, 0.1);
+                        mesh.rotation.z += diff * 0.08;
+                        mesh.rotation.x = THREE.MathUtils.lerp(mesh.rotation.x, targetRotX, 0.08);
+                        mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, targetRotY, 0.08);
                     }
 
-                    mesh.material.opacity = THREE.MathUtils.lerp(mesh.material.opacity, targetOpacity, 0.1);
                     mesh.scale.setScalar(THREE.MathUtils.lerp(mesh.scale.x, targetScale, 0.1));
                 });
             }
@@ -666,6 +672,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Call initHero3D
-    initHero3D();
+    // initHero3D(); // Reverted to Unicorn Studio embed
 
 });
