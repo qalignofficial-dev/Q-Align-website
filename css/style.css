@@ -130,6 +130,11 @@ section {
     margin-bottom: 48px;
 }
 
+/* Hide Unicorn Studio Branding */
+a[href*="unicorn.studio"] {
+    display: none !important;
+}
+
 /* 2. The Problem (Image 2, 6, 12) */
 .problem-diagram {
     display: flex;
