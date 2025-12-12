@@ -477,12 +477,12 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let j = 0; j < gridY; j++) {
                 // Gradient Colors (Subtle shift to match new background)
                 const xPct = i / gridX;
-                // Use white/glass base, maybe subtle tint
-                const color1 = new THREE.Color(0xffffff);
-                const color2 = new THREE.Color(0xFCE7F3); // Very light pinkish white
+                // Use warm white base
+                const color1 = new THREE.Color(0xFFFFFF);
+                const color2 = new THREE.Color(0xFFE4D6); // Very light orange/peach white
                 const finalColor = color1.clone().lerp(color2, xPct);
 
-                // Material: "Milky Frosted Glass" (iOS Widget feel)
+                // Material: "Milky Frosted Glass" (Warm/Orange tint)
                 const material = new THREE.MeshPhysicalMaterial({
                     color: finalColor,
                     roughness: 0.35,      // Soft matte feel

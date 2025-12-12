@@ -125,8 +125,8 @@ section {
     height: 100%;
     z-index: 0;
     overflow: hidden;
-    background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 40%, #E0C3FC 100%);
-    /* Soft iOS "Good Morning" Gradient */
+    background: linear-gradient(135deg, #FFF0E3 0%, #FFD4BC 40%, #FFB08E 100%);
+    /* Warm "Morning Sun" Orange Gradient */
 }
 
 .hero h1 {
