@@ -115,12 +115,20 @@ section {
     justify-content: center;
     align-items: center;
     z-index: 0;
-    pointer-events: none;
+    /* Enable pointer events so the canvas can track the mouse */
+    pointer-events: auto;
 }
 
 .hero .container {
     position: relative;
     z-index: 1;
+    /* Allow mouse to pass through the empty container area to the canvas below */
+    pointer-events: none;
+}
+
+/* Re-enable pointer events for interactive elements inside the container */
+.hero .container>* {
+    pointer-events: auto;
 }
 
 .hero h1 {
