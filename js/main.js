@@ -393,4 +393,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 15. Remove Unicorn Studio Branding due to overlapping issues
+    const brandingObserver = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType === 1) { // Element
+                    // Check for links to unicorn.studio
+                    if (node.tagName === 'A' && node.href && node.href.includes('unicorn.studio')) {
+                        node.style.display = 'none';
+                        node.remove();
+                    }
+                    // Check for nested links or data attributes
+                    if (node.querySelector) {
+                        const links = node.querySelectorAll('a[href*="unicorn.studio"], [data-us-branding]');
+                        links.forEach(link => {
+                            link.style.display = 'none';
+                            link.remove();
+                        });
+                    }
+                }
+            });
+        });
+    });
+
+    // Start observing the body for added nodes
+    brandingObserver.observe(document.body, { childList: true, subtree: true });
+
+    // Initial cleanup check in case it's already there
+    setTimeout(() => {
+        const brands = document.querySelectorAll('a[href*="unicorn.studio"], [data-us-branding]');
+        brands.forEach(el => {
+            el.style.display = 'none';
+            el.remove();
+        });
+    }, 500);
+
 });

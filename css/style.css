@@ -130,9 +130,17 @@ section {
     margin-bottom: 48px;
 }
 
-/* Hide Unicorn Studio Branding */
-a[href*="unicorn.studio"] {
+/* Hide Unicorn Studio Branding (Aggressive) */
+a[href*="unicorn.studio"],
+.us-branding,
+[class*="unicorn-branding"],
+[data-us-branding] {
     display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
 }
 
 /* 2. The Problem (Image 2, 6, 12) */
