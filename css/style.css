@@ -105,20 +105,6 @@ section {
     overflow: hidden;
 }
 
-.hero-bg-wrapper {
-    position: absolute;
-    /* Zoom in using transform to force off-screen clipping of edges */
-    transform: none;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 0;
-    /* Enable pointer events so the canvas can track the mouse */
-    pointer-events: auto;
-}
-
 .hero .container {
     position: relative;
     z-index: 1;
@@ -129,6 +115,18 @@ section {
 /* Re-enable pointer events for interactive elements inside the container */
 .hero .container>* {
     pointer-events: auto;
+}
+
+#hero-canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    background: transparent;
+    /* or #F8F9FA to match bg-light */
 }
 
 .hero h1 {
@@ -142,17 +140,8 @@ section {
     margin-bottom: 48px;
 }
 
-/* Hide Unicorn Studio Branding (Aggressive) */
-a[href*="unicorn.studio"],
-.us-branding,
-[class*="unicorn-branding"],
-[data-us-branding] {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    width: 0 !important;
-    height: 0 !important;
+width: 0 !important;
+height: 0 !important;
 }
 
 /* 2. The Problem (Image 2, 6, 12) */

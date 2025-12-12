@@ -435,4 +435,237 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, 500);
 
+    /* 16. Three.js Hero Background (Apple-style Glassy 3D) */
+    function initHero3D() {
+        const container = document.getElementById('hero-canvas-container');
+        if (!container) return;
+
+        // Scene Setup
+        const scene = new THREE.Scene();
+        scene.background = null;
+
+        // Camera
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+        camera.position.set(0, 0, 30);
+        camera.lookAt(0, 0, 0);
+
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({
+            alpha: true,
+            antialias: true
+        });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.shadowMap.enabled = true; // Enable Shadows
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        container.appendChild(renderer.domElement);
+
+        // Lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        dirLight.position.set(10, 20, 30);
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize.width = 2048;
+        dirLight.shadow.mapSize.height = 2048;
+        scene.add(dirLight);
+
+        // Create Sharper V-Shape Geometry ("Edgy" Look)
+        const vShape = new THREE.Shape();
+        const size = 0.6; // Slightly larger
+        const width = 0.12; // Thinner
+
+        // Draw a sharper, more acute V
+        /*
+          \   /
+           \ / 
+        */
+        vShape.moveTo(-size, size);
+        vShape.lineTo(0, -0.2); // Point goes deeper/sharper
+        vShape.lineTo(size, size);
+        vShape.lineTo(size - width, size);
+        vShape.lineTo(0, 0); // Inner V
+        vShape.lineTo(-size + width, size);
+        vShape.lineTo(-size, size);
+
+        const geometry = new THREE.ExtrudeGeometry(vShape, {
+            depth: 0.08,
+            bevelEnabled: true,
+            bevelSegments: 4, // Smoother bevel for highlights
+            steps: 1,
+            bevelSize: 0.02,
+            bevelThickness: 0.02
+        });
+        geometry.center();
+
+        // Grid Variables
+        const arrows = [];
+        const group = new THREE.Group();
+        scene.add(group);
+
+        const gridX = 24;
+        const gridY = 14;
+        const spacingX = 2.2;
+        const spacingY = 2.2;
+
+        // Create Grid with Gradient Colors
+        for (let i = 0; i < gridX; i++) {
+            for (let j = 0; j < gridY; j++) {
+                // Calculate Color
+                const xPct = i / gridX;
+                const color1 = new THREE.Color(0x3B82F6); // Blue
+                const color2 = new THREE.Color(0xF46A36); // Orange
+                const finalColor = color1.clone().lerp(color2, xPct);
+
+                // Premium Material (Glossy/Satin)
+                const material = new THREE.MeshStandardMaterial({
+                    color: finalColor,
+                    roughness: 0.4,
+                    metalness: 0.1,
+                    transparent: true,
+                    opacity: 0.3
+                });
+
+                const mesh = new THREE.Mesh(geometry, material);
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+
+                const x = (i - gridX / 2) * spacingX;
+                const y = (j - gridY / 2) * spacingY;
+
+                mesh.position.set(x, y, 0);
+
+                const randomRot = Math.random() * Math.PI * 2;
+                mesh.rotation.z = randomRot;
+
+                group.add(mesh);
+                arrows.push({
+                    mesh: mesh,
+                    x: x,
+                    y: y,
+                    initialRot: randomRot,
+                    baseColor: finalColor
+                });
+            }
+        }
+
+        // Invisible Plane for Shadows
+        const shadowPlane = new THREE.Mesh(
+            new THREE.PlaneGeometry(100, 100),
+            new THREE.ShadowMaterial({ opacity: 0.05 }) // Very subtle shadow
+        );
+        shadowPlane.position.z = -0.5;
+        group.add(shadowPlane);
+
+        // Mouse Tracker
+        let mouse = new THREE.Vector2(-9999, -9999);
+        const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+        const raycaster = new THREE.Raycaster();
+
+        function onMouseMove(event) {
+            const rect = container.getBoundingClientRect();
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        }
+
+        container.addEventListener('mouseleave', () => {
+            mouse.x = -9999;
+            mouse.y = -9999;
+        });
+
+        window.addEventListener('mousemove', onMouseMove);
+
+        // Animate
+        function animate() {
+            requestAnimationFrame(animate);
+
+            raycaster.setFromCamera(mouse, camera);
+            const target = new THREE.Vector3();
+            raycaster.ray.intersectPlane(plane, target);
+
+            if (target) {
+                arrows.forEach(item => {
+                    const mesh = item.mesh;
+
+                    const dx = target.x - mesh.position.x;
+                    const dy = target.y - mesh.position.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    const radius = 14;
+
+                    const lookAtAngle = Math.atan2(dy, dx) + Math.PI / 2;
+
+                    let targetRotZ = item.initialRot;
+                    let targetRotX = 0; // Flat
+                    let targetRotY = 0; // Flat
+                    let targetOpacity = 0.2;
+                    let targetScale = 1.0;
+
+                    if (dist < radius) {
+                        // Influence
+                        const influence = 1 - (dist / radius);
+                        const powerInfluence = Math.pow(influence, 2); // Sharp dropoff
+
+                        // Look At Z
+                        targetRotZ = lookAtAngle;
+
+                        // 3D Tilt Effect: "Edgy" feel
+                        // Tilt towards mouse direction
+                        targetRotX = (dy / radius) * influence * 1.5; // Pitch
+                        targetRotY = -(dx / radius) * influence * 1.5; // Yaw
+
+                        targetOpacity = 0.2 + (0.8 * powerInfluence);
+                        targetScale = 1.0 + (0.1 * powerInfluence);
+                    }
+
+                    // Smooth Update
+
+                    // Z Rotation
+                    let diff = targetRotZ - mesh.rotation.z;
+                    while (diff > Math.PI) diff -= Math.PI * 2;
+                    while (diff < -Math.PI) diff += Math.PI * 2;
+
+                    if (dist >= radius) {
+                        // Chaos Drift
+                        item.initialRot += 0.001;
+                        targetRotZ = item.initialRot;
+                        diff = targetRotZ - mesh.rotation.z;
+                        while (diff > Math.PI) diff -= Math.PI * 2;
+                        while (diff < -Math.PI) diff += Math.PI * 2;
+                        mesh.rotation.z += diff * 0.05;
+
+                        // Reset 3D Tilt
+                        mesh.rotation.x = THREE.MathUtils.lerp(mesh.rotation.x, 0, 0.05);
+                        mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, 0, 0.05);
+                    } else {
+                        // Order Snap
+                        mesh.rotation.z += diff * 0.1;
+                        mesh.rotation.x = THREE.MathUtils.lerp(mesh.rotation.x, targetRotX, 0.1);
+                        mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, targetRotY, 0.1);
+                    }
+
+                    mesh.material.opacity = THREE.MathUtils.lerp(mesh.material.opacity, targetOpacity, 0.1);
+                    mesh.scale.setScalar(THREE.MathUtils.lerp(mesh.scale.x, targetScale, 0.1));
+                });
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Resize
+        window.addEventListener('resize', () => {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        });
+    }
+
+    // Call initHero3D
+    initHero3D();
+
 });

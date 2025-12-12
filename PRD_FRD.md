@@ -1,4 +1,4 @@
-# 1. Product Requirements Document (PRD)
+ㅜ# 1. Product Requirements Document (PRD)
 
 ## 1.1 프로젝트 개요 (Project Overview)
 * **프로젝트명:** Q-ALIGN 공식 랜딩 페이지 (Beta Season 1)
