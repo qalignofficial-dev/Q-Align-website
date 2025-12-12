@@ -393,47 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 15. Remove Unicorn Studio Branding due to overlapping issues
-    const brandingObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-            mutation.addedNodes.forEach((node) => {
-                if (node.nodeType === 1) { // Element
-                    // Check for links to unicorn.studio
-                    if ((node.tagName === 'A' && node.href && node.href.includes('unicorn.studio')) ||
-                        (node.innerText && node.innerText.includes('Made with unicorn.studio'))) {
-                        node.style.display = 'none';
-                        node.remove();
-                    }
-                    // Check for nested links or data attributes or text
-                    if (node.querySelector) {
-                        const brands = node.querySelectorAll('a[href*="unicorn.studio"], [data-us-branding]');
-                        brands.forEach(el => el.remove());
-
-                        // Text search fallback
-                        const allElements = node.getElementsByTagName('*');
-                        for (let el of allElements) {
-                            if (el.innerText && el.innerText.includes('Made with unicorn.studio')) {
-                                el.style.display = 'none';
-                                el.remove();
-                            }
-                        }
-                    }
-                }
-            });
-        });
-    });
-
-    // Start observing the body for added nodes
-    brandingObserver.observe(document.body, { childList: true, subtree: true });
-
-    // Initial cleanup check in case it's already there
-    setTimeout(() => {
-        const brands = document.querySelectorAll('a[href*="unicorn.studio"], [data-us-branding]');
-        brands.forEach(el => {
-            el.style.display = 'none';
-            el.remove();
-        });
-    }, 500);
+    // (Old branding observer removed)
 
     /* 16. Three.js Hero Background (Apple-style Glassy 3D) */
     function initHero3D() {
@@ -515,24 +475,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         for (let i = 0; i < gridX; i++) {
             for (let j = 0; j < gridY; j++) {
-                // Gradient Colors
+                // Gradient Colors (Subtle shift to match new background)
                 const xPct = i / gridX;
-                const color1 = new THREE.Color(0x3B82F6);
-                const color2 = new THREE.Color(0xF46A36);
+                // Use white/glass base, maybe subtle tint
+                const color1 = new THREE.Color(0xffffff);
+                const color2 = new THREE.Color(0xFCE7F3); // Very light pinkish white
                 const finalColor = color1.clone().lerp(color2, xPct);
 
-                // Material: "Frosted Glass" / Gummy
-                // Needs transmission to look like jelly/glass on white
+                // Material: "Milky Frosted Glass" (iOS Widget feel)
                 const material = new THREE.MeshPhysicalMaterial({
                     color: finalColor,
-                    roughness: 0.2,       // Shiny
-                    metalness: 0.1,       // Low metal, more plastic/glass
-                    transmission: 0.6,    // See-through (Glass)
-                    thickness: 1.0,       // Refraction volume
-                    clearcoat: 1.0,       // Polish
-                    clearcoatRoughness: 0.1,
+                    roughness: 0.35,      // Soft matte feel
+                    metalness: 0.1,
+                    transmission: 0.95,   // Very transparent (glass)
+                    thickness: 1.5,       // Volume
+                    clearcoat: 0.3,       // Subtle shine, not plastic
+                    clearcoatRoughness: 0.2,
                     transparent: true,
-                    opacity: 1.0,         // Transmission handles transparency
+                    opacity: 1.0,
                     side: THREE.DoubleSide
                 });
 
@@ -672,6 +632,39 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Call initHero3D
-    // initHero3D(); // Reverted to Unicorn Studio embed
+    initHero3D();
+
+    /* Unicorn Studio Branding Removal */
+    const brandingObserver = new MutationObserver((mutations) => {
+        // Remove "Made with unicorn.studio" badge
+        const brands = document.querySelectorAll('a[href*="unicorn.studio"], [data-us-branding]');
+        brands.forEach(el => {
+            el.style.display = 'none !important';
+            el.remove();
+        });
+
+        // Attempt to remove "ostracized" text if it appears as an HTML overlay
+        // (Note: If this text is inside the WebGL canvas, it cannot be removed via code and must be edited in the project)
+        // We can look for overlays with that text
+        const possibleOverlays = document.querySelectorAll('#hero-canvas-container div, #hero-canvas-container span, #hero-canvas-container h1, #hero-canvas-container h2');
+        possibleOverlays.forEach(el => {
+            if (el.innerText && el.innerText.toLowerCase().includes('ostracized')) {
+                el.style.display = 'none !important';
+                el.remove();
+            }
+        });
+    });
+
+    brandingObserver.observe(document.body, { childList: true, subtree: true });
+
+    // One-time clean immediately (in case it's already there)
+    setTimeout(() => {
+        const brands = document.querySelectorAll('a[href*="unicorn.studio"]');
+        brands.forEach(el => el.remove());
+    }, 500);
+    setTimeout(() => {
+        const brands = document.querySelectorAll('a[href*="unicorn.studio"]');
+        brands.forEach(el => el.remove());
+    }, 2000); // Check again later
 
 });
