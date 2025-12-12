@@ -800,4 +800,23 @@ document.addEventListener('DOMContentLoaded', () => {
         brands.forEach(el => el.remove());
     }, 2000); // Check again later
 
+    /* Hybrid Accordion FAQ Logic */
+    const faqCategories = document.querySelectorAll('.faq-category-header');
+    faqCategories.forEach(header => {
+        header.addEventListener('click', () => {
+            const category = header.parentElement;
+            category.classList.toggle('active');
+            const icon = header.querySelector('.category-icon');
+            // Icon rotation is handled by CSS via .active class
+        });
+    });
+
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const qna = question.parentElement;
+            qna.classList.toggle('active');
+        });
+    });
+
 });
