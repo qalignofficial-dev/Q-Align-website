@@ -107,14 +107,15 @@ section {
 
 .hero-bg-wrapper {
     position: absolute;
-    /* Zoom in to crop out the "Made with unicorn.studio" badge at the edges */
-    width: 110%;
-    height: 110%;
-    top: -5%;
-    left: -5%;
+    /* Zoom in using transform to force off-screen clipping of edges */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform: scale(1.2);
+    transform-origin: center center;
     z-index: 0;
     pointer-events: none;
-    /* Ensure text selection works */
 }
 
 .hero .container {

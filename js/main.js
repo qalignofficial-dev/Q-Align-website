@@ -399,17 +399,24 @@ document.addEventListener('DOMContentLoaded', () => {
             mutation.addedNodes.forEach((node) => {
                 if (node.nodeType === 1) { // Element
                     // Check for links to unicorn.studio
-                    if (node.tagName === 'A' && node.href && node.href.includes('unicorn.studio')) {
+                    if ((node.tagName === 'A' && node.href && node.href.includes('unicorn.studio')) ||
+                        (node.innerText && node.innerText.includes('Made with unicorn.studio'))) {
                         node.style.display = 'none';
                         node.remove();
                     }
-                    // Check for nested links or data attributes
+                    // Check for nested links or data attributes or text
                     if (node.querySelector) {
-                        const links = node.querySelectorAll('a[href*="unicorn.studio"], [data-us-branding]');
-                        links.forEach(link => {
-                            link.style.display = 'none';
-                            link.remove();
-                        });
+                        const brands = node.querySelectorAll('a[href*="unicorn.studio"], [data-us-branding]');
+                        brands.forEach(el => el.remove());
+
+                        // Text search fallback
+                        const allElements = node.getElementsByTagName('*');
+                        for (let el of allElements) {
+                            if (el.innerText && el.innerText.includes('Made with unicorn.studio')) {
+                                el.style.display = 'none';
+                                el.remove();
+                            }
+                        }
                     }
                 }
             });
