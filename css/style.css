@@ -1147,11 +1147,11 @@ footer {
 
     /* Priority Section Mobile Title Fix */
     .priority-execution-section h2 {
-        font-size: 26px !important;
-        /* Ensure font fits */
+        font-size: 32px !important;
+        /* Increased back to 32px per user feedback */
         word-break: keep-all;
         /* Prevent mid-word breaks */
-        line-height: 1.4;
+        line-height: 1.3;
     }
 
     .priority-execution-section .mobile-br {
