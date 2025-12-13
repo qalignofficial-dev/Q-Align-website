@@ -1122,6 +1122,13 @@ footer {
         gap: 16px;
     }
 
+    /* Steps Mobile View (Requested Left Align) */
+    .step-card {
+        text-align: left !important;
+        padding: 32px 24px;
+    }
+
+
     /* Calculator Adjustments */
     .cost-result {
         font-size: 42px;
