@@ -1128,6 +1128,23 @@ footer {
         padding: 32px 24px;
     }
 
+    /* Daily Question UI Mobile (Requested Left Align & Smaller Font) */
+    .daily-question-ui {
+        text-align: left !important;
+        padding: 32px 24px !important;
+    }
+
+    .daily-question-ui h3 {
+        font-size: 19px !important;
+        /* Reduced from 22px */
+        line-height: 1.5 !important;
+    }
+
+    .daily-question-ui .section-label {
+        display: inline-block;
+        /* Ensure label behaves correctly with left align */
+    }
+
 
     /* Calculator Adjustments */
     .cost-result {
