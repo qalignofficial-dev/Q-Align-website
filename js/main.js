@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         drawMatrix();
     }
-    /* 11. Alignment Vision 3D (Milky Glass Boomerangs) */
+    /* 11. Alignment Vision 3D (Orange-Accent V-Shape Refinement) */
     function initVision3D() {
         const canvas = document.getElementById('gridCanvas');
         const container = document.getElementById('alignTrigger');
@@ -204,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Scene Setup
         const scene = new THREE.Scene();
-        // Transparent background to blend with section
         scene.background = null;
 
         // Camera
@@ -219,27 +218,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         renderer.setSize(container.offsetWidth, container.offsetHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-        // Lighting (Matching Hero: Soft Studio)
+        // Lighting (Warm & Soft)
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
         scene.add(ambientLight);
 
         const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
         dirLight.position.set(10, 20, 20);
-        dirLight.castShadow = true;
         scene.add(dirLight);
 
-        const fillLight = new THREE.DirectionalLight(0xE0F2FE, 0.8); // Cool fill
-        fillLight.position.set(-10, 0, 10);
-        scene.add(fillLight);
-
-        // Geometry: Boomerang (Smaller for Vision)
+        // Geometry: Boomerang (V-Shape)
         const shape = new THREE.Shape();
-        const w = 0.35; // Thinner
-        const armLen = 0.6; // Smaller size
-        // V-shape pointing UP initially (0,0 is bottom tip)
+        const w = 0.35;
+        const armLen = 0.6;
         shape.moveTo(0, 0);
         shape.quadraticCurveTo(armLen * 0.5, armLen * 0.5, armLen, armLen);
         shape.lineTo(armLen - w, armLen);
@@ -249,61 +240,62 @@ document.addEventListener('DOMContentLoaded', () => {
         shape.quadraticCurveTo(-armLen * 0.5, armLen * 0.5, 0, 0);
 
         const geometry = new THREE.ExtrudeGeometry(shape, {
-            depth: 0.03, // Thinner (was 0.06)
+            depth: 0.03,
             bevelEnabled: true,
-            bevelSegments: 2, // Sharper edges (was 4)
+            bevelSegments: 2,
             steps: 1,
-            bevelSize: 0.005, // Tight bevel (was 0.015)
-            bevelThickness: 0.005 // Tight bevel (was 0.015)
+            bevelSize: 0.005,
+            bevelThickness: 0.005
         });
         geometry.center();
 
-        // Grid Variables
+        // Colors
+        const colorSoft = new THREE.Color(0xFAD7A0); // Soft Orange
+        const colorPrimary = new THREE.Color(0xE67E22); // Primary Orange
+        const colorHighlight = new THREE.Color(0xFF9F43); // Highlight Orange
+
+        // Group & Grid
         const arrows = [];
         const group = new THREE.Group();
         scene.add(group);
 
-        const gridX = 20; // More density
+        const gridX = 20;
         const gridY = 10;
-        const spacingX = 1.8; // Closer spacing
+        const spacingX = 1.8;
         const spacingY = 1.8;
 
         for (let i = 0; i < gridX; i++) {
             for (let j = 0; j < gridY; j++) {
-                // Shared Milky Glass Material
                 const material = new THREE.MeshPhysicalMaterial({
-                    color: 0xFFFFFF,
-                    roughness: 0.35,
+                    color: colorSoft, // Start with Soft Orange
+                    roughness: 0.4,
                     metalness: 0.1,
-                    transmission: 0.95,
-                    thickness: 1.5,
-                    clearcoat: 0.3,
-                    clearcoatRoughness: 0.2,
+                    transmission: 0.0,
                     transparent: true,
                     opacity: 1.0,
                     side: THREE.DoubleSide
                 });
 
-                // Subtle orange tint
-                const color1 = new THREE.Color(0xFFFFFF);
-                const color2 = new THREE.Color(0xFFE4D6);
-                const xPct = i / gridX;
-                material.color = color1.clone().lerp(color2, xPct);
-
                 const mesh = new THREE.Mesh(geometry, material);
-                mesh.castShadow = true;
-                mesh.receiveShadow = true;
 
-                const x = (i - gridX / 2) * spacingX + 1.0;
-                const y = (j - gridY / 2) * spacingY + 1.0;
+                const x = (i - gridX / 2) * spacingX + 0.9;
+                const y = (j - gridY / 2) * spacingY + 0.9;
 
                 mesh.position.set(x, y, 0);
                 group.add(mesh);
+
+                // Static Radial Opacity
+                const distFromCenter = Math.sqrt(x * x + y * y);
+                const maxDist = 20;
+                const staticOpacity = Math.max(0.3, 1.0 - (distFromCenter / maxDist) * 0.8);
+
+                material.opacity = staticOpacity;
 
                 arrows.push({
                     mesh: mesh,
                     x: x,
                     y: y,
+                    baseOpacity: staticOpacity,
                     initialRot: 0
                 });
             }
@@ -314,115 +306,101 @@ document.addEventListener('DOMContentLoaded', () => {
         const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
         const raycaster = new THREE.Raycaster();
 
-        function onMouseMove(event) {
-            const rect = container.getBoundingClientRect(); // Use container rect for CSS vars
-
-            // 3D Mouse Coords (Normalized -1 to +1)
+        const onMouseMove = (event) => {
+            const rect = container.getBoundingClientRect();
             mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
             mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-            // CSS Config for Cursor Follower (Pixels)
+            // Cursor Follower CSS
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
-
             container.style.setProperty('--x', x + 'px');
             container.style.setProperty('--y', y + 'px');
-        }
+        };
 
-        container.addEventListener('mousemove', onMouseMove);
-        container.addEventListener('mouseleave', () => {
+        const onMouseLeave = () => {
             mouse.x = -9999;
             mouse.y = -9999;
-        });
+        };
 
+        container.addEventListener('mousemove', onMouseMove);
+        container.addEventListener('mouseleave', onMouseLeave);
 
-        // Animation Loop
-        let time = 0;
         function animate() {
             requestAnimationFrame(animate);
-            time += 0.01;
 
-            // Raycaster for mouse interaction
             raycaster.setFromCamera(mouse, camera);
             const target = new THREE.Vector3();
             raycaster.ray.intersectPlane(plane, target);
 
-            arrows.forEach((item, index) => {
+            const hasMouse = (mouse.x !== -9999);
+
+            arrows.forEach(item => {
                 const mesh = item.mesh;
 
-                // Default Properties
-                const dxCenter = -mesh.position.x;
-                const dyCenter = -mesh.position.y;
-                let targetAngle = Math.atan2(dyCenter, dxCenter) + Math.PI / 2; // Reverted to correct focus
-
-                const baseColor = item.baseColor || new THREE.Color(0xFFFFFF); // Use stored base if avail or white
-                const activeColor = new THREE.Color(0xF46A36); // Brand Orange confirmed
-
-                let targetColor = new THREE.Color(0xFFFFFF); // Default White/Peach
-                if (item.baseColor) targetColor.copy(item.baseColor);
-
-                let targetTransmission = 0.95; // Glass
-                let targetEmissive = new THREE.Color(0x000000); // No glow
+                // Default Target Values (Static State)
+                let targetRot = item.initialRot;
                 let targetScale = 1.0;
+                let targetColor = colorSoft;
+                let targetOpacity = item.baseOpacity;
+                let targetEmissive = new THREE.Color(0x000000);
 
-                // Mouse Interaction Override
-                if (target && mouse.x !== -9999) {
+                if (hasMouse) {
                     const dx = target.x - mesh.position.x;
                     const dy = target.y - mesh.position.y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
+                    const angle = Math.atan2(dy, dx) + Math.PI / 2;
 
-                    // Interaction Radius
-                    const hoverRadius = 14;
+                    // Interact: Point to mouse
+                    targetRot = angle;
 
-                    if (dist < hoverRadius) {
-                        const influence = 1 - (dist / hoverRadius);
-                        const mouseAngle = Math.atan2(dy, dx) + Math.PI / 2; // Point AT cursor
+                    // Proximity Logic
+                    const radius = 12;
+                    if (dist < radius) {
+                        const influence = 1 - (dist / radius);
+                        const easeInfluence = Math.pow(influence, 2);
 
-                        targetAngle = mouseAngle;
+                        targetScale = 1.0 + (easeInfluence * 0.5);
 
-                        // Active State Props
-                        targetScale = 1.0 + influence * 0.3;
+                        // Colors
+                        if (influence < 0.7) {
+                            const t = influence / 0.7;
+                            targetColor = colorSoft.clone().lerp(colorPrimary, t);
+                        } else {
+                            const t = (influence - 0.7) / 0.3;
+                            targetColor = colorPrimary.clone().lerp(colorHighlight, t);
+                            targetEmissive.setHex(0xFF9F43).multiplyScalar(t * 0.6);
+                        }
 
-                        // Color: White -> Vibrant Orange
-                        targetColor.copy(baseColor).lerp(activeColor, influence);
-                        // Transmission: Glass -> Solid (0.2)
-                        targetTransmission = 0.95 - (influence * 0.75);
-                        // Emissive: None -> Orange Glow
-                        targetEmissive.setHex(0xFF4400).multiplyScalar(influence * 0.5);
+                        targetOpacity = THREE.MathUtils.lerp(item.baseOpacity, 1.0, easeInfluence);
                     }
                 }
 
-                // Smooth Updates
-                // Rotation
-                let diff = targetAngle - mesh.rotation.z;
+                // Smooth Update
+                let diff = targetRot - mesh.rotation.z;
                 while (diff > Math.PI) diff -= Math.PI * 2;
                 while (diff < -Math.PI) diff += Math.PI * 2;
                 mesh.rotation.z += diff * 0.1;
 
-                // Material Props Lerp
+                mesh.scale.setScalar(THREE.MathUtils.lerp(mesh.scale.x, targetScale, 0.1));
+
                 mesh.material.color.lerp(targetColor, 0.1);
-                mesh.material.transmission += (targetTransmission - mesh.material.transmission) * 0.1;
+                mesh.material.opacity += (targetOpacity - mesh.material.opacity) * 0.1;
                 mesh.material.emissive.lerp(targetEmissive, 0.1);
-
-                // Scale
-                mesh.scale.setScalar(mesh.scale.x + (targetScale - mesh.scale.x) * 0.1);
-
-                // Subtle Wave/Tilt
-                mesh.rotation.x = Math.sin(time * 0.5 + index) * 0.1;
             });
 
             renderer.render(scene, camera);
         }
 
-        // Resize
-        function onWindowResize() {
+        animate();
+
+        window.addEventListener('resize', () => {
             camera.aspect = container.offsetWidth / container.offsetHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(container.offsetWidth, container.offsetHeight);
-        }
-        window.addEventListener('resize', onWindowResize);
-
-        animate();
+            // 15. Initialize Custom Hero Visuals
+            const heroVisuals = new HeroVisuals('hero-canvas');
+        });
     }
 
     // Initialize
@@ -528,7 +506,244 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // (Old branding observer removed)
 
+    /* 16. Three.js Hero Background (Apple-style Glassy 3D) */
+    function initHero3D() {
+        const container = document.getElementById('hero-canvas-container');
+        if (!container) return;
 
+        // Scene Setup
+        const scene = new THREE.Scene();
+        // No dark fog. Optional: very subtle white fog for depth fading
+        scene.fog = new THREE.Fog(0xffffff, 20, 50);
+
+        // Camera
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+        camera.position.set(0, 0, 30);
+        camera.lookAt(0, 0, 0);
+
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({
+            alpha: true,
+            antialias: true
+        });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        container.appendChild(renderer.domElement);
+
+        // Lights - Studio Setup for Light Background
+        // Soft, bright ambient to ensure nothing is too dark
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+        scene.add(ambientLight);
+
+        // Main Key Light (Soft Shadows)
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        dirLight.position.set(5, 15, 20);
+        dirLight.castShadow = true;
+        // Soften shadows
+        dirLight.shadow.mapSize.width = 2048;
+        dirLight.shadow.mapSize.height = 2048;
+        dirLight.shadow.bias = -0.0001;
+        dirLight.shadow.radius = 4; // Soft edges
+        scene.add(dirLight);
+
+        // Fill Light (Cooler to contrast warm gradient)
+        const fillLight = new THREE.DirectionalLight(0xE0F2FE, 0.5); // Light Blueish
+        fillLight.position.set(-10, 0, 10);
+        scene.add(fillLight);
+
+        // Shape: Boomerang/Curved V (Maintained)
+        const shape = new THREE.Shape();
+        const armLen = 0.6;
+        const w = 0.12;
+        shape.moveTo(-armLen, armLen);
+        shape.quadraticCurveTo(0, armLen * 0.3, 0, 0);
+        shape.quadraticCurveTo(0, armLen * 0.3, armLen, armLen);
+        shape.lineTo(armLen - w, armLen);
+        shape.quadraticCurveTo(0, armLen * 0.5 + w, -armLen + w, armLen);
+        shape.lineTo(-armLen, armLen);
+
+        const geometry = new THREE.ExtrudeGeometry(shape, {
+            depth: 0.08,
+            bevelEnabled: true,
+            bevelSegments: 6,
+            steps: 1,
+            bevelSize: 0.02,
+            bevelThickness: 0.02
+        });
+        geometry.center();
+
+        // Grid Variables
+        const arrows = [];
+        const group = new THREE.Group();
+        scene.add(group);
+
+        const gridX = 24;
+        const gridY = 14;
+        const spacingX = 2.2;
+        const spacingY = 2.2;
+
+        for (let i = 0; i < gridX; i++) {
+            for (let j = 0; j < gridY; j++) {
+                // Gradient Colors (Subtle shift to match new background)
+                const xPct = i / gridX;
+                // Use warm white base
+                const color1 = new THREE.Color(0xFFFFFF);
+                const color2 = new THREE.Color(0xFFE4D6); // Very light orange/peach white
+                const finalColor = color1.clone().lerp(color2, xPct);
+
+                // Material: "Milky Frosted Glass" (Warm/Orange tint)
+                const material = new THREE.MeshPhysicalMaterial({
+                    color: finalColor,
+                    roughness: 0.35,      // Soft matte feel
+                    metalness: 0.1,
+                    transmission: 0.95,   // Very transparent (glass)
+                    thickness: 1.5,       // Volume
+                    clearcoat: 0.3,       // Subtle shine, not plastic
+                    clearcoatRoughness: 0.2,
+                    transparent: true,
+                    opacity: 1.0,
+                    side: THREE.DoubleSide
+                });
+
+                const mesh = new THREE.Mesh(geometry, material);
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+
+                const x = (i - gridX / 2) * spacingX;
+                const y = (j - gridY / 2) * spacingY;
+
+                mesh.position.set(x, y, 0);
+
+                const randomRot = Math.random() * Math.PI * 2;
+                mesh.rotation.z = randomRot;
+
+                group.add(mesh);
+                arrows.push({
+                    mesh: mesh,
+                    x: x,
+                    y: y,
+                    initialRot: randomRot,
+                    baseColor: finalColor
+                });
+            }
+        }
+
+        // Invisible Plane for Contact Shadows
+        // On white background, shadows should be soft gray
+        const shadowPlane = new THREE.Mesh(
+            new THREE.PlaneGeometry(100, 100),
+            new THREE.ShadowMaterial({
+                opacity: 0.08, // Subtle shadow on white
+                color: 0x1F2937 // Dark gray shadow, not pitch black
+            })
+        );
+        shadowPlane.position.z = -0.5;
+        group.add(shadowPlane);
+
+        // Mouse Tracker
+        let mouse = new THREE.Vector2(-9999, -9999);
+        const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+        const raycaster = new THREE.Raycaster();
+
+        function onMouseMove(event) {
+            const rect = container.getBoundingClientRect();
+            mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+            mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        }
+
+        container.addEventListener('mouseleave', () => {
+            mouse.x = -9999;
+            mouse.y = -9999;
+        });
+
+        window.addEventListener('mousemove', onMouseMove);
+
+        // Animate
+        function animate() {
+            requestAnimationFrame(animate);
+
+            raycaster.setFromCamera(mouse, camera);
+            const target = new THREE.Vector3();
+            raycaster.ray.intersectPlane(plane, target);
+
+            if (target) {
+                arrows.forEach(item => {
+                    const mesh = item.mesh;
+
+                    const dx = target.x - mesh.position.x;
+                    const dy = target.y - mesh.position.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    const radius = 14;
+                    const lookAtAngle = Math.atan2(dy, dx) + Math.PI / 2;
+
+                    let targetRotZ = item.initialRot;
+                    let targetRotX = 0;
+                    let targetRotY = 0;
+                    // No opacity fade needed for Frosted Glass; 
+                    // varying transmission or roughness could be cool, but let's stick to motion.
+                    let targetScale = 1.0;
+
+                    if (dist < radius) {
+                        const influence = 1 - (dist / radius);
+                        const powerInfluence = Math.pow(influence, 2);
+
+                        targetRotZ = lookAtAngle;
+
+                        // 3D Tilt
+                        targetRotX = (dy / radius) * influence * 1.5;
+                        targetRotY = -(dx / radius) * influence * 1.5;
+
+                        // Scale up slightly near mouse
+                        targetScale = 1.0 + (0.1 * powerInfluence);
+                    }
+
+                    // Smooth Update
+                    let diff = targetRotZ - mesh.rotation.z;
+                    while (diff > Math.PI) diff -= Math.PI * 2;
+                    while (diff < -Math.PI) diff += Math.PI * 2;
+
+                    if (dist >= radius) {
+                        // Chaos Drift
+                        item.initialRot += 0.0005; // Slower drift for elegance
+                        targetRotZ = item.initialRot;
+                        diff = targetRotZ - mesh.rotation.z;
+                        while (diff > Math.PI) diff -= Math.PI * 2;
+                        while (diff < -Math.PI) diff += Math.PI * 2;
+                        mesh.rotation.z += diff * 0.02; // Very smooth
+
+                        mesh.rotation.x = THREE.MathUtils.lerp(mesh.rotation.x, 0, 0.05);
+                        mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, 0, 0.05);
+                    } else {
+                        // Order Snap
+                        mesh.rotation.z += diff * 0.08;
+                        mesh.rotation.x = THREE.MathUtils.lerp(mesh.rotation.x, targetRotX, 0.08);
+                        mesh.rotation.y = THREE.MathUtils.lerp(mesh.rotation.y, targetRotY, 0.08);
+                    }
+
+                    mesh.scale.setScalar(THREE.MathUtils.lerp(mesh.scale.x, targetScale, 0.1));
+                });
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Resize
+        window.addEventListener('resize', () => {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        });
+    }
+
+    // Call initHero3D
+    initHero3D();
 
     /* Unicorn Studio Branding Removal */
     const brandingObserver = new MutationObserver((mutations) => {
@@ -562,24 +777,5 @@ document.addEventListener('DOMContentLoaded', () => {
         const brands = document.querySelectorAll('a[href*="unicorn.studio"]');
         brands.forEach(el => el.remove());
     }, 2000); // Check again later
-
-    /* Hybrid Accordion FAQ Logic */
-    const faqCategories = document.querySelectorAll('.faq-category-header');
-    faqCategories.forEach(header => {
-        header.addEventListener('click', () => {
-            const category = header.parentElement;
-            category.classList.toggle('active');
-            const icon = header.querySelector('.category-icon');
-            // Icon rotation is handled by CSS via .active class
-        });
-    });
-
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(question => {
-        question.addEventListener('click', () => {
-            const qna = question.parentElement;
-            qna.classList.toggle('active');
-        });
-    });
 
 });

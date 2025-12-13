@@ -1073,8 +1073,6 @@ footer {
 
     /* Force Canvas Resizing */
     canvas {
-        width: 100% !important;
-        height: auto !important;
         max-width: 100%;
     }
 
@@ -1174,6 +1172,24 @@ footer {
     .radar-chart-placeholder {
         padding: 20px 0 !important;
     }
+}
+
+.hero-bg-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: auto;
+    /* Allow mouse interaction for the canvas */
+    overflow: hidden;
+}
+
+#hero-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 /* 14. Beta Signup Modal */
