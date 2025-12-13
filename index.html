@@ -19,7 +19,7 @@
         </div>
 
         <!-- Scripts -->
-        <script src="js/hero-visuals.js"></script>
+
         <!-- SVG Wave Background -->
         <div class="hero-wave-background">
             <svg viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
@@ -495,6 +495,18 @@
             </div>
         </footer>
 
+        <!-- Modules (Loaded sequentially for File Protocol compatibility) -->
+        <script src="js/modules/utils.js"></script>
+        <script src="js/modules/roi-calculator.js"></script>
+        <script src="js/modules/charts.js"></script>
+        <script src="js/modules/vision-3d.js"></script>
+        <script src="js/modules/hero-3d.js"></script>
+        <script src="js/modules/ui-interactions.js"></script>
+
+        <!-- Classes -->
+        <script src="js/hero-visuals.js"></script>
+
+        <!-- Main Orchestrator -->
         <script src="js/main.js"></script>
 </body>
 

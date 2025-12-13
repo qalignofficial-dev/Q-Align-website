@@ -12,7 +12,7 @@ class HeroVisuals {
             gridGap: 40,        // Dense grid
             arrowSize: 14,      // Size
             mouseThreshold: 1000,
-            baseColor: '#FFD000', // Solid Yellow (matches Active)
+            baseColor: '#FFD000', // Solid Yellow
             activeColor: '#FFD000', // Solid Yellow
             centerX: window.innerWidth / 2,
             centerY: window.innerHeight / 2
@@ -61,8 +61,6 @@ class HeroVisuals {
         this.ctx.lineJoin = 'round';
         this.ctx.strokeStyle = color;
 
-        // Draw V shape (chevron pointing right by default, so we rotate 180 to point at target)
-        // V shape: (-size, -size) -> (0, 0) -> (-size, size)
         const s = this.config.arrowSize;
         this.ctx.moveTo(-s * 0.5, -s * 0.5);
         this.ctx.lineTo(s * 0.5, 0);
@@ -72,7 +70,6 @@ class HeroVisuals {
         this.ctx.restore();
     }
 
-    // Helper to blend two hex colors
     lerpColor(a, b, amount) {
         const ah = parseInt(a.replace(/#/g, ''), 16),
             ar = ah >> 16, ag = ah >> 8 & 0xff, ab = ah & 0xff,
@@ -95,24 +92,19 @@ class HeroVisuals {
                 const x = i * this.config.gridGap;
                 const y = j * this.config.gridGap;
 
-                // Calculate angle to mouse
                 const dx = this.mouse.x - x;
                 const dy = this.mouse.y - y;
                 const angle = Math.atan2(dy, dx);
 
-                // Calculate distance from center
                 const distFromCenter = Math.sqrt(Math.pow(x - this.config.centerX, 2) + Math.pow(y - this.config.centerY, 2));
                 const maxDist = Math.sqrt(Math.pow(this.config.centerX, 2) + Math.pow(this.config.centerY, 2));
 
-                // Optional: Very subtle opacity fade at edges (cleaner look)
-                // If user wants NO gradient, we can set opacity to 1.
-                // But a slight fade looks better on white. Let's keep it subtle (0.4 to 1.0)
                 let opacity = 1 - (distFromCenter / (maxDist * 0.9));
-                opacity = Math.max(0.3, opacity); // Min opacity 0.3
+                opacity = Math.max(0.3, opacity);
 
                 this.ctx.globalAlpha = opacity;
                 this.drawChevron(x, y, angle, this.config.activeColor);
-                this.ctx.globalAlpha = 1.0; // Reset
+                this.ctx.globalAlpha = 1.0;
             }
         }
 
