@@ -1145,6 +1145,22 @@ footer {
         /* Ensure label behaves correctly with left align */
     }
 
+    /* Priority Section Mobile Title Fix */
+    .priority-execution-section h2 {
+        font-size: 26px !important;
+        /* Ensure font fits */
+        word-break: keep-all;
+        /* Prevent mid-word breaks */
+        line-height: 1.4;
+    }
+
+    .priority-execution-section .mobile-br {
+        display: block !important;
+        /* Force break */
+        content: "";
+        margin: 5px 0;
+    }
+
 
     /* Calculator Adjustments */
     .cost-result {
