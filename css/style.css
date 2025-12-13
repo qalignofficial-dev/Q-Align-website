@@ -1089,7 +1089,7 @@ footer {
     }
 
     .hero h1 {
-        font-size: 28px;
+        font-size: 40px !important;
         /* Even smaller for Hero title on mobile */
         word-break: keep-all;
         /* Prevent awkward breaks in Korean */
