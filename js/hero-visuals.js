@@ -9,11 +9,11 @@ class HeroVisuals {
 
         // Configuration
         this.config = {
-            gridGap: 40,        // Denser grid like reference image
-            arrowSize: 14,      // Slightly larger arrows
-            mouseThreshold: 1000, // Broader influence area
-            baseColor: '#E0E0E0', // Distinct light grey
-            activeColor: '#FF5F2C', // Vibrant Orange
+            gridGap: 40,        // Dense grid
+            arrowSize: 14,      // Size
+            mouseThreshold: 1000,
+            baseColor: '#FFD000', // Solid Yellow (matches Active)
+            activeColor: '#FFD000', // Solid Yellow
             centerX: window.innerWidth / 2,
             centerY: window.innerHeight / 2
         };
@@ -56,7 +56,7 @@ class HeroVisuals {
         this.ctx.rotate(angle);
 
         this.ctx.beginPath();
-        this.ctx.lineWidth = 3;
+        this.ctx.lineWidth = 6;
         this.ctx.lineCap = 'round';
         this.ctx.lineJoin = 'round';
         this.ctx.strokeStyle = color;
@@ -100,27 +100,19 @@ class HeroVisuals {
                 const dy = this.mouse.y - y;
                 const angle = Math.atan2(dy, dx);
 
-                // Calculate distance for color interpolation (Radial Gradient effect)
-                // Use center of screen as the anchor for the gradient, but mouse for rotation
-                // Or use mouse for both? The user image shows distinct radial gradient from center.
-                // Let's settle on: Rotation follows Mouse, Color follows Screen Center.
-
+                // Calculate distance from center
                 const distFromCenter = Math.sqrt(Math.pow(x - this.config.centerX, 2) + Math.pow(y - this.config.centerY, 2));
                 const maxDist = Math.sqrt(Math.pow(this.config.centerX, 2) + Math.pow(this.config.centerY, 2));
 
-                // Color logic: Closer to center = Orange, Further = Grey
-                // Invert distance logic: 0 = Center, 1 = Edge
-                let distFactor = distFromCenter / (maxDist * 0.8);
-                distFactor = Math.min(Math.max(distFactor, 0), 1);
+                // Optional: Very subtle opacity fade at edges (cleaner look)
+                // If user wants NO gradient, we can set opacity to 1.
+                // But a slight fade looks better on white. Let's keep it subtle (0.4 to 1.0)
+                let opacity = 1 - (distFromCenter / (maxDist * 0.9));
+                opacity = Math.max(0.3, opacity); // Min opacity 0.3
 
-                // Custom easing for nicer falloff
-                distFactor = 1 - Math.pow(1 - distFactor, 2);
-
-                // If distFactor is low (center), use Active Color. High (edge), Base Color.
-                // lerpColor(Active, Base, distFactor)
-                const color = this.lerpColor(this.config.activeColor, this.config.baseColor, distFactor);
-
-                this.drawChevron(x, y, angle, color);
+                this.ctx.globalAlpha = opacity;
+                this.drawChevron(x, y, angle, this.config.activeColor);
+                this.ctx.globalAlpha = 1.0; // Reset
             }
         }
 
