@@ -9,11 +9,11 @@ class HeroVisuals {
 
         // Configuration
         this.config = {
-            gridGap: 60,        // Spacing between arrows
-            arrowSize: 12,      // Size of the chevron
-            mouseThreshold: 800,// Distance influence of the mouse/center
-            baseColor: '#E8E8E8', // Light grey for edges
-            activeColor: '#FF5F2C', // Orange for center/active
+            gridGap: 40,        // Denser grid like reference image
+            arrowSize: 14,      // Slightly larger arrows
+            mouseThreshold: 1000, // Broader influence area
+            baseColor: '#E0E0E0', // Distinct light grey
+            activeColor: '#FF5F2C', // Vibrant Orange
             centerX: window.innerWidth / 2,
             centerY: window.innerHeight / 2
         };
@@ -56,7 +56,7 @@ class HeroVisuals {
         this.ctx.rotate(angle);
 
         this.ctx.beginPath();
-        this.ctx.lineWidth = 2.5;
+        this.ctx.lineWidth = 3;
         this.ctx.lineCap = 'round';
         this.ctx.lineJoin = 'round';
         this.ctx.strokeStyle = color;
