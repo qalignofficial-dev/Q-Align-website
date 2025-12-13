@@ -20,6 +20,11 @@ body {
     line-height: 1.6;
     color: var(--text-dark);
     word-break: keep-all;
+
+    /* Typography Improvements */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.025em;
 }
 
 h1,
