@@ -1101,12 +1101,12 @@ footer {
     }
 
     .hero p {
-        font-size: 16px;
-        /* Reduced from 20px */
+        font-size: 15px;
+        /* Reduced to 15px to fit long line (Initial Tilt) on mobile */
         line-height: 1.5;
         word-break: keep-all;
-        padding: 0 10px;
-        /* Prevent text touching edges */
+        padding: 0 5px;
+        /* Minimize padding to give text more room */
     }
 
     h2 {
