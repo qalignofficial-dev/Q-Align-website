@@ -96,6 +96,17 @@ window.QA = window.QA || {};
 
         if (betaForm) {
             betaForm.addEventListener('submit', (e) => {
+                const emailInput = betaForm.querySelector('input[type="email"]');
+                const userEmail = emailInput ? emailInput.value.trim() : "";
+
+                // 1. Client-side Duplicate Check
+                const appliedEmail = localStorage.getItem('qa_beta_applied_email');
+                if (appliedEmail === userEmail) {
+                    e.preventDefault();
+                    alert("이미 신청이 완료된 이메일입니다.\n감사합니다!");
+                    return;
+                }
+
                 if (GOOGLE_SCRIPT_URL === "YOUR_SCRIPT_URL_HERE" || GOOGLE_SCRIPT_URL === "") {
                     e.preventDefault();
                     alert("아직 구글 시트 연동이 설정되지 않았습니다.\n개발자에게 전달받은 URL을 js/main.js 파일에 입력해주세요.");
@@ -112,6 +123,12 @@ window.QA = window.QA || {};
 
                 setTimeout(() => {
                     alert(`[베타 신청 완료]\n성공적으로 저장되었습니다. 감사합니다!`);
+
+                    // 2. Save to LocalStorage
+                    if (userEmail) {
+                        localStorage.setItem('qa_beta_applied_email', userEmail);
+                    }
+
                     closeModal();
                     betaForm.reset();
                     submitBtn.innerText = "신청하기";
