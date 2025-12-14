@@ -1116,7 +1116,9 @@ footer {
 
     /* Table Mobile View */
     .data-table {
-        width: 100%;
+        width: 100% !important;
+        max-width: none !important;
+        /* Ensure it fills container */
     }
 
     .table-row {
