@@ -1,10 +1,32 @@
 window.QA = window.QA || {};
 
 (function () {
+    function initFAQ() {
+        // 1. Toggle Categories
+        const categories = document.querySelectorAll('.faq-category-header');
+        categories.forEach(header => {
+            header.addEventListener('click', () => {
+                const category = header.parentElement;
+                // Optional: Close others? For now, independent toggling.
+                category.classList.toggle('active');
+            });
+        });
+
+        // 2. Toggle Q&A within Categories
+        const questions = document.querySelectorAll('.faq-question');
+        questions.forEach(question => {
+            question.addEventListener('click', () => {
+                const qna = question.parentElement;
+                qna.classList.toggle('active');
+            });
+        });
+    }
+
     function initUIInteractions() {
         initStatsAnimation();
         initBetaModal();
         initBrandingRemoval();
+        initFAQ();
     }
 
     function initStatsAnimation() {
