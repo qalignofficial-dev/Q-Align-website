@@ -168,7 +168,7 @@ section {
 .hero h1 {
     margin-bottom: 24px;
     font-size: 70px !important;
-    font-weight: 800;
+    font-weight: 900;
     line-height: 1.1;
     letter-spacing: -2px;
     color: #333D4B;
@@ -693,7 +693,8 @@ footer {
 
 .hero h1 {
     font-size: 3rem;
-    font-weight: 800;
+    font-weight: 900;
+    /* Changed to Black (900) */
     /* ExtraBold */
     margin-bottom: 20px;
     line-height: 1.4;
