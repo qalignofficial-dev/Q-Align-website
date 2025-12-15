@@ -27,6 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 500); // Matches CSS animation duration
     }
 
-    // Start Rotation Interval (4000ms = 4 seconds)
-    setInterval(rotateText, 4000);
+    // Start Rotation Interval (2500ms = 2.5 seconds)
+    setInterval(rotateText, 2500);
 });
