@@ -193,6 +193,16 @@ section {
     margin-bottom: 48px;
 }
 
+/* Text Rotation Transition */
+.fade-transition {
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+}
+
+.fade-transition.fade-out {
+    opacity: 0;
+}
+
 /* 2. The Problem (Image 2, 6, 12) */
 .problem-diagram {
     display: flex;

@@ -1,0 +1,29 @@
+// Hero Text Rotation
+document.addEventListener('DOMContentLoaded', () => {
+    const catchphraseElement = document.getElementById('hero-catchphrase');
+    if (!catchphraseElement) return;
+
+    const phrases = [
+        "팀이 흔들리지 않으려면<br>방향이 매일 같아야 해요.",
+        "감으로 팀 상태를<br>추측하지 마세요.",
+        "기준이 어긋나면,<br>실행은 느려집니다.",
+        "보이지 않는 팀의 기울기를<br>매일 확인하세요."
+    ];
+
+    let currentIndex = 0;
+
+    function rotateText() {
+        // 1. Fade Out
+        catchphraseElement.classList.add('fade-out');
+
+        // 2. Change Text & Fade In (after transition finishes)
+        setTimeout(() => {
+            currentIndex = (currentIndex + 1) % phrases.length;
+            catchphraseElement.innerHTML = phrases[currentIndex];
+            catchphraseElement.classList.remove('fade-out');
+        }, 500); // Matches CSS transition duration
+    }
+
+    // Start Rotation Interval (4000ms = 4 seconds)
+    setInterval(rotateText, 4000);
+});
