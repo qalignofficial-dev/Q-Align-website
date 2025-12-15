@@ -1092,6 +1092,11 @@ footer {
         padding: 120px 0 80px;
     }
 
+    .hero h2 {
+        font-size: 36px !important;
+        line-height: 1.3;
+    }
+
     .problem-diagram {
         flex-direction: column;
     }
