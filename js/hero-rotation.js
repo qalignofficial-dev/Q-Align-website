@@ -1,4 +1,4 @@
-// Hero Text Rotation
+// Hero Text Rotation (Dynamic Vertical Slide)
 document.addEventListener('DOMContentLoaded', () => {
     const catchphraseElement = document.getElementById('hero-catchphrase');
     if (!catchphraseElement) return;
@@ -13,15 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = 0;
 
     function rotateText() {
-        // 1. Fade Out
-        catchphraseElement.classList.add('fade-out');
+        // 1. Slide Out Up
+        catchphraseElement.classList.remove('slide-in-up');
+        catchphraseElement.classList.add('slide-out-up');
 
-        // 2. Change Text & Fade In (after transition finishes)
+        // 2. Change Text & Slide In Up (after animation)
         setTimeout(() => {
             currentIndex = (currentIndex + 1) % phrases.length;
             catchphraseElement.innerHTML = phrases[currentIndex];
-            catchphraseElement.classList.remove('fade-out');
-        }, 500); // Matches CSS transition duration
+            catchphraseElement.classList.remove('slide-out-up');
+            catchphraseElement.classList.add('slide-in-up');
+        }, 500); // Matches CSS animation duration
     }
 
     // Start Rotation Interval (4000ms = 4 seconds)

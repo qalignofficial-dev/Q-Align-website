@@ -181,7 +181,7 @@ section {
 .hero h2 {
     margin-bottom: 24px;
     font-size: 70px !important;
-    font-weight: 900;
+    font-weight: 800;
     line-height: 1.1;
     letter-spacing: -2px;
     color: #333D4B;
@@ -193,14 +193,42 @@ section {
     margin-bottom: 48px;
 }
 
-/* Text Rotation Transition */
-.fade-transition {
-    transition: opacity 0.5s ease-in-out;
-    opacity: 1;
+/* Text Rotation Transition (Vertical Slide) */
+.hero h2 {
+    transition: none;
+    /* JS handles animation classes */
 }
 
-.fade-transition.fade-out {
-    opacity: 0;
+.slide-out-up {
+    animation: slideOutUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.slide-in-up {
+    animation: slideInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes slideOutUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes slideInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* 2. The Problem (Image 2, 6, 12) */
