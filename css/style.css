@@ -166,13 +166,16 @@ section {
 }
 
 .hero h1 {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.9;
+    /* Visually Hidden (SEO Safe) */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .hero h2 {
