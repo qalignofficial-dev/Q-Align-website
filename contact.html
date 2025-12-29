@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의하기 | Q-Align - AI 기반 팀 정렬 플랫폼</title>
+    <meta name="description" content="Q-Align에 대해 궁금한 점이 있으신가요? 데모 신청, 기술 지원, 파트너십 문의를 받습니다.">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body class="has-header">
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="site-logo">
+                <img src="images/logo.png" alt="Q-Align" height="32">
+            </a>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">홈</a></li>
+                    <li><a href="product.html" class="nav-link">제품</a></li>
+                    <li><a href="use-cases.html" class="nav-link">사용사례</a></li>
+                    <li><a href="pricing.html" class="nav-link">가격</a></li>
+                    <li><a href="about.html" class="nav-link">회사소개</a></li>
+                    <div class="mobile-actions">
+                        <a href="#" class="btn-start btn-modal-trigger">무료 시작</a>
+                    </div>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="#" class="btn-start btn-modal-trigger">무료 시작</a>
+            </div>
+
+            <button class="mobile-menu-toggle" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <span class="section-label fade-in">Contact</span>
+            <h1 class="fade-in fade-in-delay-1">문의하기</h1>
+            <p class="fade-in fade-in-delay-2">Q-Align에 대해 궁금한 점이 있으신가요?<br>아래 폼으로 문의해 주시면 빠르게 답변드리겠습니다.</p>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="page-section">
+        <div class="container">
+            <div class="contact-form fade-in">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">이름</label>
+                        <input type="text" id="name" name="name" placeholder="홍길동" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" name="email" placeholder="name@company.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="company">회사명</label>
+                        <input type="text" id="company" name="company" placeholder="회사명">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inquiry_type">문의 유형</label>
+                        <select id="inquiry_type" name="inquiry_type">
+                            <option value="general">일반 문의</option>
+                            <option value="demo">데모 신청</option>
+                            <option value="enterprise">Enterprise 플랜 문의</option>
+                            <option value="partnership">파트너십 문의</option>
+                            <option value="support">기술 지원</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">문의 내용</label>
+                        <textarea id="message" name="message" placeholder="궁금한 점을 자유롭게 작성해 주세요." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">문의 보내기</button>
+                </form>
+            </div>
+
+            <div style="text-align: center; margin-top: 48px;">
+                <p style="color: var(--text-gray); margin-bottom: 16px;">또는 직접 연락해 주세요</p>
+                <p style="font-size: 17px;">
+                    <a href="mailto:support@qalign.kr" style="color: var(--primary-color); text-decoration: none;">support@qalign.kr</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beta Signup Modal -->
+    <div id="betaModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h3>베타 신청하기</h3>
+            <p>이메일을 남기면<br>베타 오픈 소식을 가장 먼저 알려드려요.</p>
+            <form id="betaForm">
+                <input type="email" name="email" placeholder="이메일 주소 (name@company.com)" required class="modal-input">
+                <button type="submit" class="btn-modal-submit">신청하기</button>
+            </form>
+            <iframe name="hidden_iframe" style="display:none;"></iframe>
+        </div>
+    </div>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="images/logo-white.png" alt="Q-Align" height="28">
+                    </div>
+                    <p class="footer-tagline">매일의 질문으로 조직의 기준을 맞추는<br>데일리 정렬 OS</p>
+                </div>
+
+                <div class="footer-column">
+                    <h4>제품</h4>
+                    <ul class="footer-links">
+                        <li><a href="product.html">기능 소개</a></li>
+                        <li><a href="pricing.html">가격</a></li>
+                        <li><a href="use-cases.html">사용 사례</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>회사</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">회사 소개</a></li>
+                        <li><a href="contact.html">문의하기</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>지원</h4>
+                    <ul class="footer-links">
+                        <li><a href="help.html">도움말</a></li>
+                        <li><a href="mailto:support@qalign.kr">이메일 문의</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>법적</h4>
+                    <ul class="footer-links">
+                        <li><a href="terms.html">이용약관</a></li>
+                        <li><a href="privacy.html">개인정보처리방침</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2025 Q-ALIGN. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="terms.html">이용약관</a>
+                    <a href="privacy.html">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/modules/utils.js" defer></script>
+    <script src="js/modules/ui-interactions.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/main.js" defer></script>
+</body>
+
+</html>

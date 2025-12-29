@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q-Align | 조직의 기준을 맞추는 데일리 정렬 OS</title>
+    <meta name="description" content="Q-Align(큐얼라인)은 매일의 질문으로 조직의 기준과 목표를 정렬해, 번아웃과 비용 누수를 줄이는 조직 상태 OS입니다.">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://qalign.kr">
+    <meta property="og:title" content="Q-ALIGN — 지금 조직의 상태, 감으로 판단하지 마세요">
+    <meta property="og:description" content="매일의 질문으로 조직의 목표와 사람 상태 사이의 차이를 정리하고 문제가 되기 전에 알려드려요.">
+    <meta property="og:image" content="https://qalign.kr/images/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://qalign.kr">
+    <meta property="twitter:title" content="Q-ALIGN — 지금 조직의 상태, 감으로 판단하지 마세요">
+    <meta property="twitter:description" content="매일의 질문으로 조직의 목표와 사람 상태 사이의 차이를 정리하고 문제가 되기 전에 알려드려요.">
+    <meta property="twitter:image" content="https://qalign.kr/images/og-image.png">
+
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body class="has-header">
+
+    <!-- Site Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="index.html" class="site-logo">
+                <img src="images/logo.png" alt="Q-Align" height="32">
+            </a>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link active">홈</a></li>
+                    <li><a href="product.html" class="nav-link">제품</a></li>
+                    <li><a href="use-cases.html" class="nav-link">사용사례</a></li>
+                    <li><a href="pricing.html" class="nav-link">가격</a></li>
+                    <li><a href="about.html" class="nav-link">회사소개</a></li>
+                    <div class="mobile-actions">
+                        <a href="#" class="btn-start btn-modal-trigger">무료 시작</a>
+                    </div>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="#" class="btn-start btn-modal-trigger">무료 시작</a>
+            </div>
+
+            <button class="mobile-menu-toggle" aria-label="메뉴 열기">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero text-center">
+        <!-- Animated mesh gradient background -->
+        <div class="hero-wave-background"></div>
+        <div class="mesh-gradient-layer"></div>
+        <div class="hero-veil"></div>
+
+        <div class="container">
+            <span class="section-label fade-in">AI 기반 팀 정렬 플랫폼</span>
+            <h1 class="visually-hidden">Q-Align - 하루 한 질문으로 팀의 진짜 상태를 파악하세요</h1>
+            <h2 id="hero-catchphrase" class="fade-in fade-in-delay-1">조직이 흔들리지 않으려면<br>방향이 매일 같아야 해요.</h2>
+            <p class="hero-sub fade-in fade-in-delay-2">AI가 팀의 숨은 신호를 분석하고,<br>리더가 놓치기 쉬운 정렬 문제를 먼저 알려드립니다.</p>
+            <div class="hero-cta-group fade-in fade-in-delay-3">
+                <a href="#" class="btn btn-primary btn-modal-trigger">무료로 시작하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Propositions -->
+    <section class="page-section bg-light">
+        <div class="container">
+            <div class="value-props-grid">
+                <div class="value-prop-card fade-in fade-in-delay-1">
+                    <div class="value-prop-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>
+                    </div>
+                    <h3>매일 1분, 팀 상태 체크</h3>
+                    <p>하루 한 번 가벼운 질문으로 팀의 에너지와 방향을 체크합니다.</p>
+                </div>
+                <div class="value-prop-card fade-in fade-in-delay-2">
+                    <div class="value-prop-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/></svg>
+                    </div>
+                    <h3>AI가 분석하는 숨은 신호</h3>
+                    <p>답변 속 톤과 맥락을 분석해 문제가 되기 전에 알려드립니다.</p>
+                </div>
+                <div class="value-prop-card fade-in fade-in-delay-3">
+                    <div class="value-prop-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M7 16l4-8 4 5 4-9"/></svg>
+                    </div>
+                    <h3>주간 리포트로 한눈에 파악</h3>
+                    <p>팀 상태 변화를 추적하고, 필요한 행동을 제안받으세요.</p>
+                </div>
+                <div class="value-prop-card fade-in fade-in-delay-4">
+                    <div class="value-prop-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                    </div>
+                    <h3>목표 정렬도 실시간 확인</h3>
+                    <p>팀원들이 회사의 비전과 목표에 얼마나 연결되어 있는지 측정합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="cause-section">
+        <div class="container">
+            <div class="cause-container">
+                <div class="cause-content fade-in">
+                    <span class="section-label">The Cause</span>
+                    <h2>문제는 사람의 역량이 아니라<br>'구조'에 있습니다.</h2>
+                    <p>사람은 조금 늘지만, 대화의 복잡도는 <br class="mobile-br">기하급수적으로 폭발합니다.
+                    </p>
+
+                    <div class="data-table">
+                        <div class="table-row">
+                            <span>6명 조직</span>
+                            <div><span class="strong-num">15</span> 개 링크</div>
+                        </div>
+                        <div class="table-row">
+                            <span>12명 조직</span>
+                            <div><span class="strong-num">66</span> 개 링크</div>
+                        </div>
+                        <div class="table-row">
+                            <span>20명 조직</span>
+                            <div><span class="strong-num">190</span> 개 링크</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="canvas-container"
+                    style="display:flex; justify-content:center; align-items:center; height:450px;">
+                    <canvas id="networkCanvas" width="450" height="450"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-center reality-section">
+        <div class="container">
+            <span class="section-label fade-in">The Reality</span>
+            <h2 class="fade-in fade-in-delay-1">현장의 리더들이 꼽은<br>가장 큰 조직 운영의 병목.</h2>
+
+            <div class="reality-cards">
+                <div class="stat-card fade-in fade-in-delay-2">
+                    <div class="big-stat" data-val="66">0%</div>
+                    <h3>"같은 말을 해도<br>각자 다르게 이해한다."</h3>
+                    <p>가장 혼란스러운 이유 1위</p>
+                </div>
+                <div class="stat-card fade-in fade-in-delay-3">
+                    <div class="big-stat" data-val="21">0%</div>
+                    <h3>"큰 문제는 없지만,<br>묘하게 속도가 안 난다."</h3>
+                    <p>보이지 않는 비효율에 대한 호소</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cost-section" class="cost-section text-center">
+        <div class="container">
+            <span class="section-label fade-in" style="background: rgba(255,255,255,0.1); color: white;">The Cost</span>
+            <h2 class="fade-in fade-in-delay-1">손실은 조용히 쌓이고<br>발견은 항상 너무 늦습니다.</h2>
+
+            <div class="calculator-ui">
+                <p style="margin-bottom: 16px;">우리 조직 인원 수</p>
+                <div>
+                    <input type="number" value="5" class="team-size-input">
+                    <span style="font-size: 24px; font-weight: 700;">명</span>
+                </div>
+
+                <div style="margin: 40px 0;">
+                    <input type="range" id="roiSlider" class="roi-slider" min="1" max="1000" value="100">
+                </div>
+
+                <div class="cost-result">69,600,000원</div>
+
+                <div class="cost-details">
+                    <div class="detail-row">
+                        <span>1인당 주간 정렬 미스 시간</span>
+                        <strong>8.7시간</strong>
+                    </div>
+                    <div class="detail-row">
+                        <span>평균 시급 (예상)</span>
+                        <strong>20,000원</strong>
+                    </div>
+                    <div class="detail-row" style="margin-bottom: 0;">
+                        <span>월 주수</span>
+                        <strong>4주</strong>
+                    </div>
+                </div>
+
+                <div class="roi-cta-wrapper">
+                    <p class="roi-cta-text">이 비용의 <strong>3% 미만</strong>으로 Q-ALIGN을 시작하세요.</p>
+                    <a href="#" class="btn btn-primary btn-modal-trigger">무료 베타 신청하기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-center solution-section">
+        <div class="container">
+            <span class="section-label fade-in">The Solution</span>
+            <h2 class="fade-in fade-in-delay-1">Q-ALIGN은 복잡한 관리를 없애고<br>3단계로 조직을 자동 정렬합니다.</h2>
+
+            <div class="steps-grid">
+                <div class="step-card fade-in fade-in-delay-1">
+                    <span class="step-number">01</span>
+                    <h3>Detect (감지)</h3>
+                    <p>매일 던지는 가벼운 질문으로, 조직의 보이지 않는 '초기 기울기'를 24시간 모니터링합니다.</p>
+                </div>
+                <div class="step-card fade-in fade-in-delay-2">
+                    <span class="step-number">02</span>
+                    <h3>Analyze (해석)</h3>
+                    <p>Q-ALIGN 엔진이 텍스트 뒤에 숨겨진 맥락을 분석하여, 리더와 조직원 사이의 '해석의 격차(Drift)'를 찾아냅니다.</p>
+                </div>
+                <div class="step-card fade-in fade-in-delay-3">
+                    <span class="step-number">03</span>
+                    <h3>Align (정렬)</h3>
+                    <p>문제가 커지기 전에 리더에게 알림을 보내고, 즉시 실행 가능한 'Action Item'을 제공하여 정렬을 맞춥니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="science-section">
+        <div class="container">
+            <div class="science-container">
+                <div class="science-content">
+                    <span class="section-label">The Science</span>
+                    <h2 style="margin-bottom: 40px;">감으로 경영하지 마세요.<br>6가지 데이터로 운영하세요.</h2>
+
+                    <div class="metrics-grid">
+                        <div class="metric-box">
+                            <h3 class="metric-title">
+                                <span class="metric-en">Growth</span>
+                                <span class="metric-kr">성장의 확신</span>
+                            </h3>
+                            <p class="metric-desc">내 일이 나를 성장시키는가</p>
+                        </div>
+                        <div class="metric-box">
+                            <h3 class="metric-title">
+                                <span class="metric-en">Productivity</span>
+                                <span class="metric-kr">생산성</span>
+                            </h3>
+                            <p class="metric-desc">일에 집중을 방해하는 요소가 있는가</p>
+                        </div>
+                        <div class="metric-box">
+                            <h3 class="metric-title">
+                                <span class="metric-en">Teamwork</span>
+                                <span class="metric-kr">협업 자연스러움</span>
+                            </h3>
+                            <p class="metric-desc">조직과의 협업이 잘 맞물리는가</p>
+                        </div>
+                        <div class="metric-box">
+                            <h3 class="metric-title">
+                                <span class="metric-en">Customer</span>
+                                <span class="metric-kr">고객 기준 판단</span>
+                            </h3>
+                            <p class="metric-desc">의사결정이 고객 기준에 맞는가</p>
+                        </div>
+                        <div class="metric-box">
+                            <h3 class="metric-title">
+                                <span class="metric-en">Vision</span>
+                                <span class="metric-kr">비전 연결감</span>
+                            </h3>
+                            <p class="metric-desc">내 일이 회사 비전과 연결되는가</p>
+                        </div>
+                        <div class="metric-box">
+                            <h3 class="metric-title">
+                                <span class="metric-en">Psychological Safety</span>
+                                <span class="metric-kr">심리적 안전감</span>
+                            </h3>
+                            <p class="metric-desc">심리적으로 안전하게 일하고 있는가</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="radar-chart-placeholder" style="background: none; padding: 0;">
+                    <canvas id="matrixCanvas" width="500" height="500"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leader-Facing Value Section -->
+    <section class="leader-value-section">
+        <div class="container">
+            <div class="value-grid">
+                <!-- Card 1: Team Summary -->
+                <div class="value-card fade-in fade-in-delay-1">
+                    <div class="card-icon">
+                        <!-- Chart Icon -->
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18 20V10M12 20V4M6 20V14" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-name">Team Summary</h3>
+                    <h4 class="card-headline">조직 상태가 한눈에 보입니다.</h4>
+                    <p class="card-body">하루 3초 입력만으로 조직의 에너지 흐름과 미뤄지는 일이 선명하게 드러납니다. 이제 '감'이 아니라 데이터로 판단할 수 있습니다.</p>
+                </div>
+
+                <!-- Card 2: Action Nudges -->
+                <div class="value-card fade-in fade-in-delay-2">
+                    <div class="card-icon">
+                        <!-- Lightning/Spark Icon -->
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-name">Action Nudges</h3>
+                    <h4 class="card-headline">지금 해야 할 행동이 명확해집니다.</h4>
+                    <p class="card-body">정렬 기울기를 기준으로 리더가 취할 1–2가지 행동이 자동으로 요약됩니다. 리더십의 갈피를 잡아주는 실질적인 도구입니다.</p>
+                </div>
+
+                <!-- Card 3: Conversation Triggers -->
+                <div class="value-card fade-in fade-in-delay-3">
+                    <div class="card-icon">
+                        <!-- Chat Trigger Icon -->
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M21 11.5C21.0039 12.8199 20.6951 14.1219 20.1 15.3C19.3944 16.7118 18.3098 17.8992 16.9674 18.7293C15.6251 19.5594 14.0782 19.9994 12.5 20C11.1801 20.0035 9.87246 19.6952 8.69429 19.1009C8.61907 19.0631 8.53488 19.0494 8.45142 19.0614L5 20L5.93895 16.5479C5.95079 16.4646 5.93721 16.3807 5.89972 16.3057C5.30452 15.1278 4.99616 13.8202 5 12.5001C4.99968 10.9221 5.43963 9.3753 6.26965 8.03299C7.09968 6.69068 8.28701 5.60608 9.69876 4.90049C11.1105 4.19491 12.6934 3.89675 14.2655 4.03964C15.8375 4.18252 17.3361 4.76077 18.5904 5.70889C19.3776 6.31429 20.016 7.07865 20.463 7.95156C20.8146 8.63857 20.9972 9.39967 21 10.1695V11.5Z"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-name">Conversation Triggers</h3>
+                    <h4 class="card-headline">꼭 필요한 대화가 바로 보입니다.</h4>
+                    <p class="card-body">기준 차이가 발견된 지점을 감지해 어디서 엇갈렸는지 선명하게 드러냅니다. 불필요한 회의 없이 필요한 순간에만 대화를 시작할 수 있습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="text-center">
+            <div class="container">
+                <span class="section-label">FAQ</span>
+                <h2 style="text-align: center;">도입 전, 궁금한 점들.</h2>
+
+                <div class="faq-hybrid-accordion">
+                    <!-- Category 1: Why Q-ALIGN? -->
+                    <div class="faq-category">
+                        <div class="faq-category-header" role="button" tabindex="0">
+                            <span class="category-title">Why Q-ALIGN?</span>
+                            <span class="category-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="faq-category-body">
+                            <div class="faq-qna">
+                                <div class="faq-question" role="button" tabindex="0">
+                                    Q. Q-ALIGN은 어떤 문제를 해결하나요?
+                                </div>
+                                <div class="faq-answer">
+                                    <p>Q-ALIGN은 조직이 이미 열심히 일하고 있음에도 <strong>목표와 사람 상태 사이에 어긋남이 생기고 있는 순간</strong>을 먼저
+                                        알려줍니다.<br>
+                                        성과가 떨어진 뒤가 아니라, 아직 말로 설명되지 않은 <strong>초기의 불균형 신호</strong>를 진단합니다.</p>
+                                </div>
+                            </div>
+                            <div class="faq-qna">
+                                <div class="faq-question" role="button" tabindex="0">
+                                    Q. Q-ALIGN은 설문 도구인가요?
+                                </div>
+                                <div class="faq-answer">
+                                    <p>아니에요. Q-ALIGN은 점수를 매기거나 평가하기 위한 설문이 아닙니다.<br>
+                                        하루 한 번의 짧은 질문을 통해, <strong>지금 조직이 어떤 대화를 필요로 하는지</strong>를 드러내는 진단 도구예요.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 2: For Team Members -->
+                    <div class="faq-category">
+                        <div class="faq-category-header" role="button" tabindex="0">
+                            <span class="category-title">For Team Members</span>
+                            <span class="category-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="faq-category-body">
+                            <div class="faq-qna">
+                                <div class="faq-question" role="button" tabindex="0">
+                                    Q. 오늘의 질문은 어떻게 결정되나요?
+                                </div>
+                                <div class="faq-answer">
+                                    <p>회사 생성일 기준으로 경과 일수에 따라 자동 선택됩니다. 질문은 <strong>Vision, Customer, Productivity, Growth, PsychologicalSafety, Teamwork</strong> 6개 카테고리에서 순환합니다.</p>
+                                </div>
+                            </div>
+                            <div class="faq-qna">
+                                <div class="faq-question" role="button" tabindex="0">
+                                    Q. 익명으로 답변할 수 있나요?
+                                </div>
+                                <div class="faq-answer">
+                                    <p>질문 설정에 따라 다릅니다. 관리자가 익명 허용을 설정한 질문에서만 익명 답변이 가능합니다.</p>
+                                </div>
+                            </div>
+                            <div class="faq-qna">
+                                <div class="faq-question" role="button" tabindex="0">
+                                    Q. Work DNA란 무엇인가요?
+                                </div>
+                                <div class="faq-answer">
+                                    <p>개인의 업무 스타일과 성향을 AI가 분석한 결과입니다. 과거 답변 텍스트, 평점, 재직 기간 등을 종합하여 <strong>업무 패턴, 협업 스타일, 성장 영역, 추천 행동</strong>을 파악합니다.<br>새 답변이 추가되면 자동으로 갱신됩니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 3: For Leaders -->
+                    <div class="faq-category">
+                        <div class="faq-category-header" role="button" tabindex="0">
+                            <span class="category-title">For Leaders</span>
+                            <span class="category-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="faq-category-body">
+                            <div class="faq-qna">
+                                <div class="faq-question" role="button" tabindex="0">
+                                    Q. 팀 리포트가 생성되지 않는 이유는?
+                                </div>
+                                <div class="faq-answer">
+                                    <p>팀 참여율이 <strong>50% 미만</strong>이면 AI 분석이 비활성화됩니다. 충분한 데이터가 없으면 분석 결과의 신뢰도가 낮아지기 때문입니다.<br>팀원들에게 답변을 독려하여 참여율을 50% 이상으로 높이세요.</p>
+                                </div>
+                            </div>
+                            <div class="faq-qna">
+                                <div class="faq-question" role="button" tabindex="0">
+                                    Q. 플래그 시스템(Red/Purple/Green)이란?
+                                </div>
+                                <div class="faq-answer">
+                                    <p>AI가 답변의 톤을 분석하여 분류한 결과입니다.<br>
+                                        <strong style="color: #e53935;">Red</strong>: 우려/불만/긴급<br>
+                                        <strong style="color: #7b1fa2;">Purple</strong>: 혼란/질문/불확실<br>
+                                        <strong style="color: #43a047;">Green</strong>: 긍정/성취/안정<br><br>
+                                        Red 플래그가 많은 영역에 우선 관심을 기울이면 됩니다.</p>
+                                </div>
+                            </div>
+                            <div class="faq-qna">
+                                <div class="faq-question" role="button" tabindex="0">
+                                    Q. 기존 업무 방식이나 도구와 충돌하지 않나요?
+                                </div>
+                                <div class="faq-answer">
+                                    <p>충돌하지 않습니다. Q-ALIGN은 일을 바꾸지 않고, <strong>일을 바라보는 기준을 정렬</strong>합니다.<br>
+                                        기존 목표 관리, 일정 관리 도구 위에 자연스럽게 얹힙니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 4: About the Results -->
+                    <div class="faq-category">
+                        <div class="faq-category-header" role="button" tabindex="0">
+                            <span class="category-title">About the Results</span>
+                            <span class="category-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                        </div>
+                        <div class="faq-category-body">
+                            <div class="faq-qna">
+                                <div class="faq-question" role="button" tabindex="0">
+                                    Q. '오늘 리더에게 필요한 한 가지'는 어떻게 나오나요?
+                                </div>
+                                <div class="faq-answer">
+                                    <p>여러 조직원의 응답을 종합해, 오늘 리더가 할 수 있는 <strong>가장 영향력 있는 한 가지 행동</strong>을 제안합니다.<br>
+                                        작지만, 조직의 정렬을 다시 맞추는 데 집중합니다.</p>
+                                </div>
+                            </div>
+                            <div class="faq-qna">
+                                <div class="faq-question" role="button" tabindex="0">
+                                    Q. 주간 리포트가 빈 상태로 나와요
+                                </div>
+                                <div class="faq-answer">
+                                    <p>다음을 확인하세요:<br>
+                                        1. 해당 주에 답변이 있는지 확인<br>
+                                        2. 참여율이 50% 이상인지 확인<br><br>
+                                        충분한 데이터가 모이면 AI 분석이 자동으로 생성됩니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container cta-container">
+            <h2 class="cta-title">Start Aligning<br>Today.</h2>
+            <div class="cta-right">
+                <p class="cta-desc">Q-ALIGN은 침묵 속의 기울기를 가시화하는<br>유일한 OS입니다.</p>
+                <a href="#" class="btn-cta-primary">무료로 시작하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beta Signup Modal -->
+    <div id="betaModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <h3>베타 신청하기</h3>
+            <p>이메일을 남기면<br>베타 오픈 소식을 가장 먼저 알려드려요.</p>
+            <form id="betaForm">
+                <input type="email" name="email" placeholder="이메일 주소 (name@company.com)" required class="modal-input">
+                <button type="submit" class="btn-modal-submit">신청하기</button>
+            </form>
+            <iframe name="hidden_iframe" style="display:none;"></iframe>
+        </div>
+    </div>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="images/logo-white.png" alt="Q-Align" height="28">
+                    </div>
+                    <p class="footer-tagline">매일의 질문으로 조직의 기준을 맞추는<br>데일리 정렬 OS</p>
+                </div>
+                <div class="footer-column">
+                    <h4>제품</h4>
+                    <ul class="footer-links">
+                        <li><a href="product.html">기능 소개</a></li>
+                        <li><a href="pricing.html">가격</a></li>
+                        <li><a href="use-cases.html">사용 사례</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>회사</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">회사 소개</a></li>
+                        <li><a href="contact.html">문의하기</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>지원</h4>
+                    <ul class="footer-links">
+                        <li><a href="help.html">도움말</a></li>
+                        <li><a href="mailto:support@qalign.kr">이메일 문의</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>법적</h4>
+                    <ul class="footer-links">
+                        <li><a href="terms.html">이용약관</a></li>
+                        <li><a href="privacy.html">개인정보처리방침</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2025 Q-ALIGN. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="terms.html">이용약관</a>
+                    <a href="privacy.html">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/modules/utils.js" defer></script>
+    <script src="js/modules/roi-calculator.js" defer></script>
+    <script src="js/modules/charts.js" defer></script>
+    <script src="js/modules/ui-interactions.js" defer></script>
+    <script src="js/navigation.js" defer></script>
+    <script src="js/main.js" defer></script>
+</body>
+
+</html>
