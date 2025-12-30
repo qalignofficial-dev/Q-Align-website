@@ -118,11 +118,10 @@ section { padding: var(--section-spacing) 0; }
     text-align: center;
 }
 .partner-label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
-    color: var(--text-gray);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    color: #999;
+    letter-spacing: 0.25em;
     margin-bottom: 24px;
 }
 .logo-marquee {
