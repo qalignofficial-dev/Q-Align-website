@@ -118,8 +118,8 @@ window.QA = window.QA || {};
         const closeBtn = document.querySelector('.modal-close');
         const betaForm = document.getElementById('betaForm');
 
-        // 모달을 여는 모든 CTA 버튼들
-        const modalTriggers = document.querySelectorAll('.btn-modal-trigger, .btn-cta-primary');
+        // 모달을 여는 버튼들 (btn-modal-trigger 클래스만)
+        const modalTriggers = document.querySelectorAll('.btn-modal-trigger');
 
         function openModal(e) {
             if (e) e.preventDefault();
