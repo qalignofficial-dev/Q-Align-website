@@ -43,6 +43,34 @@ window.QA = window.QA || {};
         });
     }
 
+    function initContactForm() {
+        const contactForm = document.getElementById('contactForm');
+        if (!contactForm) return;
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const name = contactForm.querySelector('#name').value.trim();
+            const email = contactForm.querySelector('#email').value.trim();
+            const company = contactForm.querySelector('#company').value.trim();
+            const inquiryType = contactForm.querySelector('#inquiry_type');
+            const inquiryLabel = inquiryType.options[inquiryType.selectedIndex].text;
+            const message = contactForm.querySelector('#message').value.trim();
+
+            const subject = `[Q-Align 문의] ${inquiryLabel} - ${name}`;
+            const body = `이름: ${name}
+이메일: ${email}
+회사명: ${company || '(미입력)'}
+문의 유형: ${inquiryLabel}
+
+문의 내용:
+${message}`;
+
+            const mailtoLink = `mailto:support@qalign.kr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
+        });
+    }
+
     function initUIInteractions() {
         initScrollAnimations();
         initStatsAnimation();
@@ -51,6 +79,7 @@ window.QA = window.QA || {};
         initFAQ();
         initHeroRotation();
         initCarousel();
+        initContactForm();
     }
 
     // Dreelio-style scroll animations
