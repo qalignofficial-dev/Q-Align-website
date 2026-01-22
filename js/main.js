@@ -19,4 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. UI Interactions (Modals, Stats, etc.)
     if (window.QA.initUIInteractions) window.QA.initUIInteractions();
+
+    // 4. Analytics (GA4 이벤트 추적)
+    if (window.QA.initAnalytics) window.QA.initAnalytics();
 });

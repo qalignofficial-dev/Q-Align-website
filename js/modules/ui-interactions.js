@@ -67,6 +67,12 @@ window.QA = window.QA || {};
 ${message}`;
 
             const mailtoLink = `mailto:support@qalign.kr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+            // GA4 이벤트 추적
+            if (window.QA?.analytics?.trackContactSubmit) {
+                window.QA.analytics.trackContactSubmit(inquiryLabel);
+            }
+
             window.location.href = mailtoLink;
         });
     }
@@ -197,6 +203,11 @@ ${message}`;
 
                 setTimeout(() => {
                     alert(`[베타 신청 완료]\n성공적으로 저장되었습니다. 감사합니다!`);
+
+                    // GA4 이벤트 추적
+                    if (window.QA?.analytics?.trackBetaSignup) {
+                        window.QA.analytics.trackBetaSignup();
+                    }
 
                     // 2. Save to LocalStorage
                     if (userEmail) {
