@@ -67,7 +67,7 @@ section { padding: var(--section-spacing) 0; }
 
 /* Hero */
 .hero {
-    position: relative; min-height: 100vh; padding: 120px 0 0; overflow: hidden;
+    position: relative; min-height: auto; padding: 120px 0 0; overflow: hidden; /* 2026-06-22 파트너 섹션 숨김: 100vh→auto로 히어로 높이 축소 (원복: auto→100vh) */
     background: transparent; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
 }
 .hero .container { position: relative; z-index: 2; }
@@ -85,6 +85,7 @@ section { padding: var(--section-spacing) 0; }
     position: relative;
     margin-top: 48px;
     max-width: 900px;
+    max-height: 440px; /* 2026-06-22 파트너 로고용 죽은 흰 페이드 영역 잘라냄 (562px→440px) */
     margin-left: auto;
     margin-right: auto;
     border-radius: 16px 16px 0 0;
@@ -103,9 +104,17 @@ section { padding: var(--section-spacing) 0; }
     bottom: 0;
     left: 0;
     right: 0;
-    height: 80%;
+    height: 50%; /* 2026-06-22 블러(흰 페이드) 구간 단축 80%→50%: 대시보드 더 보이고 빈 흐림 줄임 */
     background: linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.7) 20%, rgba(255, 255, 255, 0.95) 40%, white 55%);
     pointer-events: none;
+}
+
+/* 2026-06-22 파트너 섹션 숨김 후속: 가치 제안 섹션을 데모 이미지 하단 흰 페이드 위로 끌어올려 빈 여백 축소 (원복: 이 블록 삭제) */
+.value-props-section {
+    position: relative; /* 히어로(positioned) 위에 그려져 카드 잘림 방지하는 안전장치 */
+    z-index: 5;
+    margin-top: -95px; /* 데모 이미지 흰색 경계(완전 흰색 지점)까지 끌어올려 흰 꼬리 제거 */
+    padding-top: 24px;
 }
 
 /* Partner Logo Marquee */
@@ -363,6 +372,7 @@ section { padding: var(--section-spacing) 0; }
     .hero h2 { font-size: 36px !important; line-height: 1.3; }
     .hero p { font-size: 15px; line-height: 1.5; }
     .hero-demo-image { margin-top: 32px; border-radius: 12px; }
+    .value-props-section { margin-top: -40px; } /* 모바일: 데스크톱 -160px 대신 약하게 (이미지가 작아 과겹침 방지) */
     .cause-container, .reality-cards, .steps-grid, .science-container { flex-direction: column; grid-template-columns: 1fr; }
     .cause-container { text-align: center; align-items: center; }
     .big-stat { font-size: 48px; }
